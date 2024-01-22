@@ -19,6 +19,11 @@
             font-size: 16px;
             margin-bottom: 10px;
         }
+        
+           .arrow-icon {
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
 
         .collapsible-content {
             display: none;
@@ -43,7 +48,11 @@
     <!-- Active Reading sectoin -->
     <section id="about" class="content-section">
         <div class="container">
-            <h2>Active Reading List<button class="collapsible-btn" onclick="toggleList()">Toggle List</button></h2>
+            <h2>Active Reading List</h2>
+            <div class="collapsible-header" onclick="toggleList()">
+                <h2>Linked Unordered List:</h2>
+                <div class="arrow-icon">&#9660;</div>
+            </div>
             <div class="collapsible-content">
             <ul>
             <li><a href="https://www.stripe.press/poor-charlies-almanack">Poor Charlie's Almanac</a></li>
@@ -101,7 +110,9 @@
     <script>
         function toggleList() {
             var content = document.querySelector('.collapsible-content');
+            var arrowIcon = document.querySelector('.arrow-icon');
             content.style.display = (content.style.display === 'none') ? 'block' : 'none';
+            arrowIcon.style.transform = (content.style.display === 'none') ? 'rotate(0deg)' : 'rotate(180deg)';
         }
     </script>
 </body>
