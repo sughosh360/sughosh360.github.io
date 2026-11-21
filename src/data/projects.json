@@ -2,7 +2,7 @@
   {
     "id": "thesis",
     "name": "SQL Execution of Smoked Duck",
-    "description": "MS thesis (WuLab, advisor Prof. Eugene Wu; defense panel included Mark Raasveldt, DuckDB Labs CTO). Integrates provenance capture and lineage querying natively into DuckDB's extension APIs \u2014 presented at the SIGMOD 2022 student research competition in Philadelphia.",
+    "description": "MS thesis (WuLab, advisor Prof. Eugene Wu; defense panel included Mark Raasveldt, DuckDB Labs CTO). Integrates provenance capture and lineage querying natively into DuckDB's extension APIs. Presented at the SIGMOD 2022 student research competition in Philadelphia.",
     "url": "https://github.com/sughosh360/Thesis",
     "tags": [
       "DuckDB",

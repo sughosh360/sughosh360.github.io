@@ -23,7 +23,7 @@ const { heading, books, open = false } = Astro.props;
             <a href={book.url} target="_blank" rel="noopener noreferrer">
               {book.title}
             </a>
-            {book.author && <span class="muted"> — {book.author}</span>}
+            {book.author && <span class="muted"> by {book.author}</span>}
           </li>
         ))}
       </ul>

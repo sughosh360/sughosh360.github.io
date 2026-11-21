@@ -26,7 +26,7 @@ export const site = {
   name: 'Sughosh Kaushik',
   title: 'Sughosh Kaushik',
   description: 'Personal site of Sughosh Kaushik: projects and reading list.',
-  bio: 'Database enthusiast. Software engineer at AWS, working on the Redshift query engine — before that ZeroETL and Aurora MySQL. Fluent in SQL; Columbia MS thesis on lineage querying in DuckDB. I write about what I build and keep track of what I read.',
+  bio: 'Database enthusiast and software engineer at AWS. My work includes the Redshift query engine, ZeroETL, and Aurora MySQL. I’m fluent in SQL and wrote my Columbia MS thesis on lineage querying in DuckDB. I write about what I build and keep track of what I read.',
   links: [
     { label: 'GitHub', url: 'https://github.com/sughosh360' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/sughosh-kaushik' },

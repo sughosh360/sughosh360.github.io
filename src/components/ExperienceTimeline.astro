@@ -42,15 +42,11 @@ const isCurrent = (period: string) => /present/i.test(period);
                 <span class="period muted">{item.period}</span>
               </div>
             </div>
-            {item.bullets.length > 0 && (
-              <details class="details">
-                <summary>Highlights ({item.bullets.length})</summary>
-                <ul>
-                  {item.bullets.map((b) => (
-                    <li>{b}</li>
-                  ))}
-                </ul>
-              </details>
+            {item.bullets.length === 1 && <p class="contributions">{item.bullets[0]}</p>}
+            {item.bullets.length > 1 && (
+              <ul class="contributions">
+                {item.bullets.map((bullet) => <li>{bullet}</li>)}
+              </ul>
             )}
           </article>
         </li>
@@ -247,40 +243,16 @@ const isCurrent = (period: string) => /present/i.test(period);
     background: color-mix(in srgb, var(--accent) 12%, transparent);
   }
 
-  .details {
-    margin-top: 0.7rem;
-  }
-  .details summary {
-    cursor: pointer;
-    font-size: 0.85rem;
-    color: var(--muted);
-    list-style: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.2rem 0;
-  }
-  .details summary::-webkit-details-marker {
-    display: none;
-  }
-  .details summary::before {
-    content: '▸';
-    transition: transform 0.2s ease;
-  }
-  .details[open] summary::before {
-    transform: rotate(90deg);
-  }
-  .details summary:hover {
-    color: var(--fg);
-  }
-  .details ul {
-    margin: 0.6rem 0 0;
-    padding-left: 1.2rem;
+  .contributions {
+    margin: 0.7rem 0 0;
     font-size: 0.9rem;
     color: var(--muted);
   }
-  .details li {
-    margin: 0.3rem 0;
+  ul.contributions {
+    padding-inline-start: 1.2rem;
+  }
+  .contributions li + li {
+    margin-top: 0.3rem;
   }
 
   @media (max-width: 560px) {
@@ -312,8 +284,7 @@ const isCurrent = (period: string) => /present/i.test(period);
     }
     .card,
     .dot,
-    .chip,
-    .details summary::before {
+    .chip {
       transition: none;
     }
   }
