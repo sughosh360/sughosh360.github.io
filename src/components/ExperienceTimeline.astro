@@ -62,6 +62,7 @@ const isCurrent = (period: string) => /present/i.test(period);
 <script>
   const root = document.querySelector('[data-timeline]');
   if (root) {
+    root.setAttribute('data-js', '');
     // Filter chips
     const chips = root.querySelectorAll<HTMLButtonElement>('.chip');
     const items = root.querySelectorAll<HTMLElement>('.tl-item');
@@ -150,14 +151,12 @@ const isCurrent = (period: string) => /present/i.test(period);
     background: var(--border);
   }
 
-  .tl-item {
-    position: relative;
-    padding-left: 4.25rem;
-    padding-bottom: 1.9rem;
+  .exp[data-js] .tl-item {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
+  .exp[data-js] .tl-item.is-visible,
   .tl-item.is-visible {
     opacity: 1;
     transform: none;
@@ -301,7 +300,7 @@ const isCurrent = (period: string) => /present/i.test(period);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .tl-item {
+    .exp[data-js] .tl-item {
       opacity: 1;
       transform: none;
       transition: none;
