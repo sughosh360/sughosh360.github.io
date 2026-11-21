@@ -5,7 +5,7 @@ import experienceJson from '../data/experience.json';
 import Base from '../layouts/Base.astro';
 import BookList from '../components/BookList.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import ExperienceItem from '../components/ExperienceItem.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
 import { site, type Book, type Project, type Experience } from '../data/site';
 
 const books = booksJson as Book[];
@@ -23,9 +23,8 @@ const byStatus = (status: 'reading' | 'read' | 'next') =>
 
   <section id="experience">
     <h2>Experience</h2>
-    <ul class="experience">
-      {experience.map((item) => <ExperienceItem item={item} />)}
-    </ul>
+    <p class="muted">Software engineer — databases, query engines, and the systems behind them.</p>
+    <ExperienceTimeline items={experience} />
   </section>
 
   <section id="projects">
@@ -70,10 +69,8 @@ const byStatus = (status: 'reading' | 'read' | 'next') =>
     font-size: 1.15rem;
     margin: 0;
   }
-  .experience {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  #experience p {
+    margin-top: 0.4rem;
   }
   .grid {
     display: grid;

@@ -1,0 +1,316 @@
+---
+import type { Experience } from '../data/site';
+
+interface Props {
+  items: Experience[];
+}
+
+const { items } = Astro.props;
+
+const initials = (org: string) =>
+  org
+    .split(/\s+/)
+    .map((w) => w[0] ?? '')
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
+// Preserve file order (newest first); group only for stable ordering of the filter chips.
+const orgs = [...new Set(items.map((i) => i.org))];
+const isCurrent = (period: string) => /present/i.test(period);
+---
+
+<div class="exp" data-timeline>
+  <div class="filters" role="group" aria-label="Filter experience by company">
+    <button class="chip is-active" data-org="" aria-pressed="true">All</button>
+    {orgs.map((org) => <button class="chip" data-org={org} aria-pressed="false">{org}</button>)}
+  </div>
+
+  <ol class="tl">
+    {
+      items.map((item) => (
+        <li class="tl-item" data-org={item.org}>
+          <span class="dot" aria-hidden="true">{initials(item.org)}</span>
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <p class="role">{item.role}</p>
+                <p class="org-name muted">{item.org}</p>
+              </div>
+              <div class="meta">
+                {isCurrent(item.period) && <span class="badge">Now</span>}
+                <span class="period muted">{item.period}</span>
+              </div>
+            </div>
+            {item.bullets.length > 0 && (
+              <details class="details">
+                <summary>Highlights ({item.bullets.length})</summary>
+                <ul>
+                  {item.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  const root = document.querySelector('[data-timeline]');
+  if (root) {
+    // Filter chips
+    const chips = root.querySelectorAll<HTMLButtonElement>('.chip');
+    const items = root.querySelectorAll<HTMLElement>('.tl-item');
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const org = chip.dataset.org ?? '';
+        chips.forEach((c) => {
+          c.classList.toggle('is-active', c === chip);
+          c.setAttribute('aria-pressed', String(c === chip));
+        });
+        items.forEach((el) => {
+          const match = org === '' || el.dataset.org === org;
+          el.hidden = !match;
+          if (match) el.classList.add('is-visible');
+        });
+      });
+    });
+
+    // Scroll reveal
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    items.forEach((el) => io.observe(el));
+  }
+</script>
+
+<style>
+  .exp {
+    margin-top: 0.5rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .chip {
+    padding: 0.35rem 0.9rem;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .chip:hover {
+    color: var(--fg);
+    border-color: var(--accent);
+  }
+  .chip.is-active {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  @media (prefers-color-scheme: dark) {
+    .chip.is-active {
+      color: #0c0a09;
+    }
+  }
+
+  .tl {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  /* vertical rail */
+  .tl::before {
+    content: '';
+    position: absolute;
+    left: 1.55rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .tl-item {
+    position: relative;
+    padding-left: 4.25rem;
+    padding-bottom: 1.9rem;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .tl-item.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  .tl-item:last-child {
+    padding-bottom: 0;
+  }
+  .tl-item[hidden] {
+    display: none;
+  }
+
+  .dot {
+    position: absolute;
+    left: 0;
+    top: 1.15rem;
+    width: 3.1rem;
+    height: 3.1rem;
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .tl-item:hover .dot,
+  .tl-item:focus-within .dot {
+    border-color: var(--accent);
+    transform: scale(1.06);
+  }
+
+  .card {
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--card);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .tl-item:hover .card,
+  .tl-item:focus-within .card {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.5rem 1rem;
+  }
+  .role {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.02rem;
+  }
+  .org-name {
+    margin: 0.15rem 0 0;
+    font-size: 0.88rem;
+  }
+  .meta {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+  }
+  .period {
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.12rem 0.55rem;
+    border-radius: 999px;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  .details {
+    margin-top: 0.7rem;
+  }
+  .details summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: var(--muted);
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0;
+  }
+  .details summary::-webkit-details-marker {
+    display: none;
+  }
+  .details summary::before {
+    content: '▸';
+    transition: transform 0.2s ease;
+  }
+  .details[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .details summary:hover {
+    color: var(--fg);
+  }
+  .details ul {
+    margin: 0.6rem 0 0;
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .details li {
+    margin: 0.3rem 0;
+  }
+
+  @media (max-width: 560px) {
+    .tl::before {
+      left: 1.35rem;
+    }
+    .tl-item {
+      padding-left: 3.6rem;
+    }
+    .dot {
+      width: 2.7rem;
+      height: 2.7rem;
+      font-size: 0.72rem;
+      top: 0.9rem;
+    }
+    .meta {
+      margin-left: 0;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tl-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .card,
+    .dot,
+    .chip,
+    .details summary::before {
+      transition: none;
+    }
+  }
+</style>
