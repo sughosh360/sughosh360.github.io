@@ -1,0 +1,23 @@
+[
+  {
+    "id": "thesis",
+    "name": "SQL Execution of Smoked Duck",
+    "description": "MS thesis (WuLab, advisor Prof. Eugene Wu; defense panel included Mark Raasveldt, DuckDB Labs CTO). Integrates provenance capture and lineage querying natively into DuckDB's extension APIs \u2014 presented at the SIGMOD 2022 student research competition in Philadelphia.",
+    "url": "https://github.com/sughosh360/Thesis",
+    "tags": [
+      "DuckDB",
+      "Data lineage",
+      "SQL"
+    ]
+  },
+  {
+    "id": "chatbot-concierge",
+    "name": "Chatbot Concierge",
+    "description": "A recommendation chatbot built for Cloud Computing & Big Data (COMS 6998) at Columbia University.",
+    "url": "https://github.com/sughosh360/COMS-6998-hw1",
+    "tags": [
+      "Cloud",
+      "JavaScript"
+    ]
+  }
+]
