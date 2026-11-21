@@ -28,6 +28,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keep anchor targets clear of the sticky header (it wraps to two rows on mobile). */
+  scroll-padding-top: 6rem;
 }
 
 body {
