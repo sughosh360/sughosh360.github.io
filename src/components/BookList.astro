@@ -1,9 +1,9 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { Book } from '../data/site';
 
 interface Props {
   heading: string;
-  books: CollectionEntry<'books'>[];
+  books: Book[];
   open?: boolean;
 }
 
@@ -18,12 +18,12 @@ const { heading, books, open = false } = Astro.props;
         <span class="count">{books.length}</span>
       </summary>
       <ul>
-        {books.map(({ data }) => (
+        {books.map((book) => (
           <li>
-            <a href={data.url} target="_blank" rel="noopener noreferrer">
-              {data.title}
+            <a href={book.url} target="_blank" rel="noopener noreferrer">
+              {book.title}
             </a>
-            {data.author && <span class="muted"> — {data.author}</span>}
+            {book.author && <span class="muted"> — {book.author}</span>}
           </li>
         ))}
       </ul>

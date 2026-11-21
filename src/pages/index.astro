@@ -1,20 +1,31 @@
 ---
-import { getCollection } from 'astro:content';
+import booksJson from '../data/books.json';
+import projectsJson from '../data/projects.json';
+import experienceJson from '../data/experience.json';
 import Base from '../layouts/Base.astro';
 import BookList from '../components/BookList.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { site } from '../data/site';
+import ExperienceItem from '../components/ExperienceItem.astro';
+import { site, type Book, type Project, type Experience } from '../data/site';
 
-const books = await getCollection('books');
-const projects = await getCollection('projects');
+const books = booksJson as Book[];
+const projects: Project[] = projectsJson;
+const experience: Experience[] = experienceJson;
 const byStatus = (status: 'reading' | 'read' | 'next') =>
-  books.filter((book) => book.data.status === status);
+  books.filter((book) => book.status === status);
 ---
 
 <Base>
   <section id="about">
     <h1>Hi, I'm {site.name.split(' ')[0]}.</h1>
     <p class="lead muted">{site.bio}</p>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <ul class="experience">
+      {experience.map((item) => <ExperienceItem item={item} />)}
+    </ul>
   </section>
 
   <section id="projects">
@@ -58,6 +69,11 @@ const byStatus = (status: 'reading' | 'read' | 'next') =>
   .lead {
     font-size: 1.15rem;
     margin: 0;
+  }
+  .experience {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
   .grid {
     display: grid;

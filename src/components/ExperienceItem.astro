@@ -1,0 +1,55 @@
+---
+import type { Experience } from '../data/site';
+
+interface Props {
+  item: Experience;
+}
+
+const { role, org, period, bullets } = Astro.props.item;
+---
+
+<li class="item">
+  <div class="top">
+    <h3>{role} · {org}</h3>
+    <span class="period muted">{period}</span>
+  </div>
+  {
+    bullets.length > 0 && (
+      <ul>
+        {bullets.map((b) => (
+          <li>{b}</li>
+        ))}
+      </ul>
+    )
+  }
+</li>
+
+<style>
+  .item {
+    margin-bottom: 1.6rem;
+  }
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 0.8rem;
+  }
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .period {
+    margin-left: auto;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+  ul {
+    margin: 0.45rem 0 0;
+    padding-left: 1.2rem;
+    font-size: 0.93rem;
+    color: var(--muted);
+  }
+  li li {
+    margin: 0.25rem 0;
+  }
+</style>

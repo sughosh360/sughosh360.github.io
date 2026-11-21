@@ -19,8 +19,9 @@ npm run build    # type-check + build to dist/
 | Name, bio, contact links | `src/data/site.ts` |
 | Reading list | `src/data/books.json` (`status`: `reading`, `next` or `read`) |
 | Projects | `src/data/projects.json` |
+| Experience | `src/data/experience.json` (listed in file order, newest first) |
 
-Entries are validated at build time against the schemas in `src/content.config.ts`.
+Data files are typed; `@astrojs/check` (in `npm run build`) catches shape mismatches.
 
 ## Deploy
 

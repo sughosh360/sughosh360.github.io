@@ -1,11 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { Project } from '../data/site';
 
 interface Props {
-  project: CollectionEntry<'projects'>;
+  project: Project;
 }
 
-const { name, description, url, tags } = Astro.props.project.data;
+const { name, description, url, tags } = Astro.props.project;
 ---
 
 <a class="card" href={url} target="_blank" rel="noopener noreferrer">
