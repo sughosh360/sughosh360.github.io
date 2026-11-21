@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  heading: string;
+  books: CollectionEntry<'books'>[];
+  open?: boolean;
+}
+
+const { heading, books, open = false } = Astro.props;
+---
+
+{
+  books.length > 0 && (
+    <details open={open}>
+      <summary>
+        <h3>{heading}</h3>
+        <span class="count">{books.length}</span>
+      </summary>
+      <ul>
+        {books.map(({ data }) => (
+          <li>
+            <a href={data.url} target="_blank" rel="noopener noreferrer">
+              {data.title}
+            </a>
+            {data.author && <span class="muted"> — {data.author}</span>}
+          </li>
+        ))}
+      </ul>
+    </details>
+  )
+}
+
+<style>
+  details {
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    background: var(--card);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::before {
+    content: '▸';
+    color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+  details[open] summary::before {
+    transform: rotate(90deg);
+  }
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .count {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  ul {
+    margin: 0;
+    padding: 0 1rem 0.9rem 2.4rem;
+  }
+  li {
+    margin: 0.3rem 0;
+  }
+</style>

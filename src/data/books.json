@@ -1,0 +1,15 @@
+[
+  { "id": "poor-charlies-almanack", "title": "Poor Charlie's Almanack", "author": "Charlie Munger", "url": "https://www.stripe.press/poor-charlies-almanack", "status": "reading" },
+  { "id": "trillion-dollar-coach", "title": "Trillion Dollar Coach", "author": "Eric Schmidt, Jonathan Rosenberg, Alan Eagle", "url": "https://a.co/d/i6JzXSQ", "status": "reading" },
+  { "id": "crying-in-h-mart", "title": "Crying in H Mart", "author": "Michelle Zauner", "url": "https://a.co/d/g2f7elM", "status": "reading" },
+  { "id": "the-intelligent-investor", "title": "The Intelligent Investor", "author": "Benjamin Graham", "url": "https://a.co/d/00FJpda", "status": "reading" },
+
+  { "id": "the-war-for-kindness", "title": "The War for Kindness: Building Empathy in a Fractured World", "author": "Jamil Zaki", "url": "https://a.co/d/bpnYSfW", "status": "read" },
+  { "id": "my-life-in-full", "title": "My Life in Full: Work, Family, and Our Future", "author": "Indra Nooyi", "url": "https://a.co/d/31dnIRl", "status": "read" },
+
+  { "id": "born-a-crime", "title": "Born a Crime", "author": "Trevor Noah", "url": "https://a.co/d/7WKOuRw", "status": "next" },
+  { "id": "the-essential-drucker", "title": "The Essential Drucker", "author": "Peter F. Drucker", "url": "https://a.co/d/4EoytZX", "status": "next" },
+  { "id": "the-infinite-game", "title": "The Infinite Game", "author": "Simon Sinek", "url": "https://a.co/d/hxVjjv7", "status": "next" },
+  { "id": "mans-search-for-meaning", "title": "Man's Search for Meaning", "author": "Viktor E. Frankl", "url": "https://a.co/d/2M6K0vm", "status": "next" },
+  { "id": "the-design-of-everyday-things", "title": "The Design of Everyday Things", "author": "Don Norman", "url": "https://a.co/d/eigKY8o", "status": "next" }
+]

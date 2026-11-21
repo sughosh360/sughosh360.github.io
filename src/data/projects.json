@@ -1,0 +1,16 @@
+[
+  {
+    "id": "thesis",
+    "name": "SQL Execution of Smoked Duck",
+    "description": "Thesis on SQL query execution in Smoked Duck.",
+    "url": "https://github.com/sughosh360/Thesis",
+    "tags": ["Databases", "Research"]
+  },
+  {
+    "id": "chatbot-concierge",
+    "name": "Chatbot Concierge",
+    "description": "A recommendation chatbot built for Cloud Computing & Big Data (COMS 6998) at Columbia University.",
+    "url": "https://github.com/sughosh360/COMS-6998-hw1",
+    "tags": ["Cloud", "JavaScript"]
+  }
+]
