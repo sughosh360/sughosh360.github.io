@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import BookList from '../components/BookList.astro';
+import papers from '../data/papers.json';
+import books from '../data/books.json';
+import type { Book } from '../data/site';
+
+const groups = [
+  { status: 'reading', heading: 'Currently reading' },
+  { status: 'next', heading: 'Up next' },
+  { status: 'read', heading: 'Read' },
+] as const;
+---
+<Base title="Papers & reading | Sughosh Kaushik" description="Two papers behind my DuckDB research, what each explains, and a shelf of books I'm reading.">
+  <header class="intro">
+    <p class="eyebrow">Field notes / Reading shelf</p>
+    <h1>Papers &amp; reading</h1>
+    <p class="lead">A short reading path into database internals, plus the books on my shelf.</p>
+  </header>
+  <section aria-labelledby="papers">
+    <h2 id="papers">Papers behind the thesis</h2>
+    <p>I cited these papers in my thesis. Start with Smoke for the problem and DuckDB for the engine, then see how they fit together in the <a href="/notes/lineage-in-duckdb/">lineage case study</a>.</p>
+    <div class="papers">
+      {papers.map((paper) => (
+        <article>
+          <p class="eyebrow">{paper.topic}</p>
+          <h3><a href={paper.url}>{paper.title}</a></h3>
+          <p class="muted">{paper.citation}</p>
+          <p>{paper.note}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+  <section aria-labelledby="books">
+    <h2 id="books">Bookshelf</h2>
+    {groups.map(({ status, heading }) =>
+      <BookList heading={heading} books={(books as Book[]).filter(book => book.status === status)} open={status === 'reading'} />
+    )}
+  </section>
+</Base>
+<style>
+  .intro { padding-block: 3rem 1rem; }
+  .intro h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); margin: .5rem 0; }
+  .papers { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; margin-top: 1.2rem; }
+  article { background: var(--card); border: 1px solid var(--border); border-radius: .6rem; padding: 1.25rem; }
+  article h3 { margin: .6rem 0 .3rem; }
+  article p { margin: .4rem 0 0; }
+  article .muted { font-size: .88rem; }
+  section > p { max-width: 60ch; }
+</style>

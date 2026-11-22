@@ -24,9 +24,9 @@ export interface Experience {
 
 export const site = {
   name: 'Sughosh Kaushik',
-  title: 'Sughosh Kaushik',
-  description: 'Personal site of Sughosh Kaushik: projects and reading list.',
-  bio: 'Database enthusiast and software engineer at AWS. My work includes the Redshift query engine, ZeroETL, and Aurora MySQL. I’m fluent in SQL and wrote my Columbia MS thesis on lineage querying in DuckDB. I write about what I build and keep track of what I read.',
+  title: 'Sughosh Kaushik | Database engineering notes',
+  description: 'Explore Sughosh Kaushik’s work on Amazon Redshift and DuckDB, with a SQL lineage case study, query plan walkthrough, and reading notes.',
+  bio: 'I’m a database enthusiast and software engineer working on query execution at Amazon Redshift. At Columbia, I built a way to ask DuckDB which rows contributed to a result.',
   links: [
     { label: 'GitHub', url: 'https://github.com/sughosh360' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/sughosh-kaushik' },

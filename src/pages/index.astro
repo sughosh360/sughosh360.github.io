@@ -1,87 +1,78 @@
 ---
-import booksJson from '../data/books.json';
-import projectsJson from '../data/projects.json';
-import experienceJson from '../data/experience.json';
+import projects from '../data/projects.json';
+import experience from '../data/experience.json';
 import Base from '../layouts/Base.astro';
-import BookList from '../components/BookList.astro';
+import LineageFigure from '../components/LineageFigure.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ExperienceTimeline from '../components/ExperienceTimeline.astro';
-import { site, type Book, type Project, type Experience } from '../data/site';
-
-const books = booksJson as Book[];
-const projects: Project[] = projectsJson;
-const experience: Experience[] = experienceJson;
-const byStatus = (status: 'reading' | 'read' | 'next') =>
-  books.filter((book) => book.status === status);
+import { site } from '../data/site';
 ---
 
 <Base>
-  <section id="about">
-    <h1>Hi, I'm {site.name.split(' ')[0]}.</h1>
-    <p class="lead muted">{site.bio}</p>
+  <section id="about" class="hero">
+    <div>
+      <p class="eyebrow">Field notes / Database engineering</p>
+      <h1>Sughosh Kaushik</h1>
+      <p class="lead">{site.bio}</p>
+      <div class="actions">
+        <a class="button" href="/notes/lineage-in-duckdb/">Read the DuckDB case study <span aria-hidden="true">→</span></a>
+        <a href="#now">What I’m working on</a>
+      </div>
+    </div>
+    <LineageFigure />
   </section>
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <p class="muted">I work on databases, query engines, and the systems behind them.</p>
-    <ExperienceTimeline items={experience} />
+  <section id="now" class="now">
+    <div>
+      <p class="eyebrow">Now / <time datetime="2026-11">November 2026</time></p>
+      <h2>Connecting DuckDB to Redshift</h2>
+    </div>
+    <div>
+      <p>I’m working on a DuckDB extension that lets users run Amazon Redshift queries from DuckDB. The public design discussion shows how a DuckDB connection could attach a Redshift cluster or Serverless workgroup.</p>
+      <a href="https://github.com/duckdb/duckdb-aws/pull/252">Read the integration discussion <span aria-hidden="true">↗</span></a>
+    </div>
   </section>
 
   <section id="projects">
-    <h2>Projects</h2>
+    <p class="eyebrow">01 / Selected work</p>
+    <h2>Projects &amp; database notes</h2>
     <div class="grid">
       {projects.map((project) => <ProjectCard project={project} />)}
     </div>
   </section>
 
+  <section id="experience">
+    <p class="eyebrow">02 / Career</p>
+    <h2>Experience</h2>
+    <ExperienceTimeline items={experience} />
+  </section>
+
   <section id="reading">
-    <h2>Reading</h2>
-    <BookList heading="Currently reading" books={byStatus('reading')} open />
-    <BookList heading="Up next" books={byStatus('next')} />
-    <BookList heading="Read" books={byStatus('read')} />
+    <p class="eyebrow">03 / Bookshelf</p>
+    <h2>Papers &amp; reading</h2>
+    <p>Start with two papers behind my DuckDB research: one on why lineage needs to be fast, the other on the engine that made it possible to experiment.</p>
+    <a href="/reading/">Browse the reading shelf <span aria-hidden="true">→</span></a>
   </section>
 
   <section id="contact">
-    <h2>Contact</h2>
-    <ul class="links">
-      {
-        site.links.map((link) => (
-          <li>
-            <a href={link.url} target="_blank" rel="noopener noreferrer">
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <p class="eyebrow">04 / Elsewhere</p>
+    <h2>Get in touch</h2>
+    <div class="actions">{site.links.map((link) => <a href={link.url}>{link.label} <span aria-hidden="true">↗</span></a>)}</div>
   </section>
 </Base>
 
 <style>
-  #about {
-    padding-top: 4rem;
-  }
-  h1 {
-    font-size: clamp(2rem, 6vw, 2.75rem);
-    margin: 0 0 0.75rem;
-  }
-  .lead {
-    font-size: 1.15rem;
-    margin: 0;
-  }
-  #experience p {
-    margin-top: 0.4rem;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-    gap: 1rem;
-  }
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    padding: 0;
-    list-style: none;
-  }
+  .hero, .now { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  .hero { padding-block: clamp(3rem, 7vw, 5.75rem); grid-template-columns: 1.15fr .85fr; }
+  .hero h1 { margin: .6rem 0 1.1rem; font-size: clamp(3.3rem, 6.9vw, 5.5rem); }
+  .hero .lead { max-width: 34rem; }
+  .now { grid-template-columns: .85fr 1.15fr; padding: clamp(1.3rem, 3vw, 2.3rem); background: var(--wash); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: .65rem; }
+  .now h2 { margin-bottom: 0; }
+  .now p:not(.eyebrow) { margin: 0 0 .75rem; }
+  .now + section { border-top: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+  .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem 1.2rem; }
+  .hero .actions { margin-top: 1.5rem; }
+  #reading > p:not(.eyebrow) { max-width: 64ch; }
+  @media (max-width: 48rem) { .hero, .now { grid-template-columns: 1fr; } }
 </style>

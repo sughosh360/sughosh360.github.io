@@ -8,7 +8,7 @@ interface Props {
 const { name, description, url, tags } = Astro.props.project;
 ---
 
-<a class="card" href={url} target="_blank" rel="noopener noreferrer">
+<a class="card" href={url}>
   <h3>{name}</h3>
   <p class="muted">{description}</p>
   {

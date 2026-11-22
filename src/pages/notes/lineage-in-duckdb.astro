@@ -1,0 +1,22 @@
+---
+import Note from '../../layouts/Note.astro';
+import LineageFigure from '../../components/LineageFigure.astro';
+---
+<Note title="Which rows made this result? Tracing lineage in DuckDB" description="For my Columbia MS thesis, I built a SQL interface in DuckDB to trace a query result back to its source rows." label="Case study / Columbia WuLab / 2022">
+  <h2>Start with a bar on a chart</h2>
+  <p>A sales dashboard says East sold 65. Click the bar: which orders should the dashboard show? SQL can compute the sum, but the sum alone doesn't tell us which rows contributed. That relationship is called <strong>lineage</strong>. Following it from a result back to its inputs is a backward trace.</p>
+  <pre aria-label="Example aggregation in SQL"><code>{`WITH orders(id, region, amount) AS (
+  VALUES (17, 'East', 40), (18, 'West', 10), (19, 'East', 25)
+)
+SELECT region, SUM(amount) AS total
+FROM orders
+GROUP BY region;`}</code></pre>
+  <LineageFigure />
+  <h2>Read the mappings where they live</h2>
+  <p>Smoked Duck already captured lineage as DuckDB's operators ran. My question was how to make those mappings queryable through SQL. Turning every mapping into a regular table would make it easy to scan, but we'd pay for copying and formatting data before anyone even clicked the chart.</p>
+  <p>I implemented a physical scan operator that reads the captured mappings directly. To trace across a whole query plan, I integrated lineage indexes with DuckDB's index join. Instead of scanning and joining whole mapping tables for one selected result, the engine could follow the relevant row IDs from one operator to its child.</p>
+  <h2>What the experiment showed</h2>
+  <p>On selected TPC-H queries at scale factor 1, I traced the first output tuple and compared the indexed approach with a hash join over the scanned mappings. The indexed approach was faster in that comparison. It wasn't uniformly cheap: queries 11 through 15 still had high overhead. The lesson was to measure the interaction a user actually performs, not just the cost of running the original query.</p>
+  <h2>Go to the source</h2>
+  <p>My thesis, <a href="https://github.com/sughosh360/Thesis/blob/master/Smoked_Duck.pdf">SQL Execution of Smoked Duck</a>, was advised by Eugene Wu at Columbia. Chapter 5 covers the physical plan and chapter 6 describes the benchmark. For the short version, see the <a href="https://yongjoopark.com/sigmodsrc2022/posters/id13.pdf">SIGMOD 2022 research poster</a>.</p>
+</Note>
