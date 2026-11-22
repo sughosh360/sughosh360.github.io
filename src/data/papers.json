@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Smoke: Fine-grained Lineage at Interactive Speed",
+    "citation": "Fotis Psallidas and Eugene Wu · VLDB 2018",
+    "topic": "Data lineage",
+    "url": "https://www.vldb.org/pvldb/vol11/p719-psallidas.pdf",
+    "note": "If someone clicks a chart to inspect a result, rerunning the original query can be too slow. Smoke shows how recording row relationships during execution can make that later interaction fast."
+  },
+  {
+    "title": "DuckDB: an Embeddable Analytical Database",
+    "citation": "Mark Raasveldt and Hannes Mühleisen · SIGMOD 2019",
+    "topic": "Query engines",
+    "url": "https://duckdb.org/pdf/SIGMOD2019-demo-duckdb.pdf",
+    "note": "Analytical queries don't require a separate database server. DuckDB brings a vectorized engine into the application process, the same execution model my thesis extended to answer lineage queries."
+  }
+]

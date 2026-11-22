@@ -1,0 +1,39 @@
+<figure>
+  <figcaption><span>Fig. 01</span> Backward lineage</figcaption>
+  <svg viewBox="0 0 396 192" role="img" aria-label="The East total of 65 comes from orders 17 and 19. Order 18 belongs to West and does not contribute.">
+    <g class="labels"><text x="12" y="20">INPUT / ORDERS</text><text x="272" y="20">OUTPUT / SUM</text></g>
+    <g class="paths">
+      <path d="M157 54 C212 54 209 102 271 102"/>
+      <path d="M157 150 C212 150 209 102 271 102"/>
+    </g>
+    <g class="nodes">
+      <rect x="12" y="36" width="145" height="36" rx="5"/>
+      <rect class="ignored" x="12" y="84" width="145" height="36" rx="5"/>
+      <rect x="12" y="132" width="145" height="36" rx="5"/>
+      <rect class="result" x="271" y="78" width="111" height="48" rx="5"/>
+    </g>
+    <g class="rows">
+      <text x="24" y="59">17 · East · 40</text>
+      <text x="24" y="107" class="dim">18 · West · 10</text>
+      <text x="24" y="155">19 · East · 25</text>
+      <text x="286" y="107" class="total">East · 65</text>
+    </g>
+  </svg>
+  <p>One result. Two contributing rows.</p>
+</figure>
+
+<style>
+  figure { margin: 0; background: #182f33; color: #eff8ef; border: 1px solid #335056; border-radius: .75rem; padding: clamp(.85rem, 2.5vw, 1.55rem); }
+  figcaption { font: 600 .77rem var(--mono); }
+  figcaption span { color: #b6eab5; text-transform: uppercase; margin-right: .75rem; }
+  svg { display: block; width: 100%; margin-top: 1.3rem; font-family: var(--mono); }
+  .labels { fill: #a9c6be; font-size: 11px; letter-spacing: 1.2px; }
+  .paths { fill: none; stroke: #b6eab5; stroke-width: 2; }
+  .nodes { fill: #26464a; stroke: #80a69c; }
+  .ignored { fill: none; stroke: #547071; stroke-dasharray: 3; }
+  .result { fill: #caf0bd; stroke: none; }
+  .rows { fill: #edf8eb; font-size: 14px; }
+  .dim { fill: #aec3c0; }
+  .total { fill: #152e2d; font-weight: 700; }
+  p { margin: 0; padding-top: .85rem; border-top: 1px solid #40605f; color: #c8d9d1; font-size: .82rem; }
+</style>

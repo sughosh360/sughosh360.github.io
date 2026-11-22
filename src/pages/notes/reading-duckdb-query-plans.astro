@@ -1,0 +1,19 @@
+---
+import Note from '../../layouts/Note.astro';
+---
+<Note title="Read a DuckDB plan from the rows up" description="A small, reproducible SQL example for telling the cost of reading data apart from the cost of reducing it." label="Database note / Query execution">
+  <h2>Predict the row counts first</h2>
+  <p>Here's a query you can run in a DuckDB shell. It generates the integers from 0 through 9,999, keeps the multiples of ten, then counts them. Before looking at timings, predict how many rows should leave each step.</p>
+  <pre aria-label="DuckDB profiling example"><code>{`EXPLAIN ANALYZE
+SELECT count(*)
+FROM range(10000) AS numbers(i)
+WHERE i % 10 = 0;`}</code></pre>
+  <h2>Follow the data, not the printed order</h2>
+  <ol>
+    <li><strong>Source:</strong> the range function produces 10,000 rows.</li>
+    <li><strong>Filter:</strong> 1,000 rows satisfy the predicate. The filter discards 90% of its input.</li>
+    <li><strong>Aggregate:</strong> the count produces one output row. Its <em>value</em> is 1,000; its <em>cardinality</em> is one.</li>
+  </ol>
+  <p>Plain <code>EXPLAIN</code> shows the plan with estimates. <code>EXPLAIN ANALYZE</code> executes the statement and reports actual row counts and operator timings. This example is too small for meaningful timing comparisons; the useful signal here is the change in row count.</p>
+  <p>Try replacing <code>% 10</code> with <code>% 100</code>. The source stays the same size, but only 100 rows now reach the aggregate. For more, see the <a href="https://duckdb.org/docs/stable/guides/meta/explain_analyze">DuckDB profiling guide</a>.</p>
+</Note>

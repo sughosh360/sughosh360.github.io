@@ -1,14 +1,21 @@
 [
   {
     "id": "thesis",
-    "name": "SQL Execution of Smoked Duck",
-    "description": "MS thesis (WuLab, advisor Prof. Eugene Wu; defense panel included Mark Raasveldt, DuckDB Labs CTO). Integrates provenance capture and lineage querying natively into DuckDB's extension APIs. Presented at the SIGMOD 2022 student research competition in Philadelphia.",
-    "url": "https://github.com/sughosh360/Thesis",
+    "name": "Which rows made this result?",
+    "description": "Inside my Smoked Duck thesis: a physical scan and lineage indexes that trace a result through DuckDB’s query plan.",
+    "url": "/notes/lineage-in-duckdb/",
     "tags": [
       "DuckDB",
       "Data lineage",
       "SQL"
     ]
+  },
+  {
+    "id": "query-plans",
+    "name": "Read a DuckDB plan from the rows up",
+    "description": "One query, three row counts. Use EXPLAIN ANALYZE to see what a filter really does.",
+    "url": "/notes/reading-duckdb-query-plans/",
+    "tags": ["Walkthrough", "SQL"]
   },
   {
     "id": "chatbot-concierge",

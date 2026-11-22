@@ -5,9 +5,11 @@ import { site } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  type?: 'website' | 'article';
 }
 
-const { title = site.title, description = site.description } = Astro.props;
+const { title = site.title, description = site.description, type = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 const year = new Date().getFullYear();
 ---
 
@@ -18,10 +20,14 @@ const year = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/share.png', Astro.site)} />
+    <meta property="og:image:alt" content="Sughosh Kaushik's database field notes: DuckDB, Redshift and SQL" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>{title}</title>
   </head>
   <body>
@@ -29,10 +35,9 @@ const year = new Date().getFullYear();
       <nav class="container">
         <a class="logo" href="/">{site.name}</a>
         <ul>
-          <li><a href="/#about">About</a></li>
+          <li><a href="/#projects">Work</a></li>
           <li><a href="/#experience">Experience</a></li>
-          <li><a href="/#projects">Projects</a></li>
-          <li><a href="/#reading">Reading</a></li>
+          <li><a href="/reading/">Reading</a></li>
           <li><a href="/#contact">Contact</a></li>
         </ul>
       </nav>
