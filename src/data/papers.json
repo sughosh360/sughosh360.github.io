@@ -1,16 +1,134 @@
 [
   {
+    "ref": 1,
+    "kind": "Industry report",
+    "title": "Data Visualization Tools Market",
+    "citation": "Fortune Business Insights · market research",
+    "url": "https://www.fortunebusinessinsights.com/data-visualization-market-103259",
+    "subjects": [],
+    "keywords": ["Visualization", "Market research"],
+    "note": "Background for the thesis introduction, not a research paper. The publisher updates the market figures over time."
+  },
+  {
+    "ref": 2,
+    "title": "Trio: A System for Data, Uncertainty, and Lineage",
+    "citation": "Parag Agrawal, Omar Benjelloun, Anish Das Sarma, Chris Hayworth, Shubha Nabar, Tomoe Sugihara and Jennifer Widom · VLDB 2006",
+    "url": "https://www.vldb.org/conf/2006/p1151-agrawal.pdf",
+    "subjects": ["cs.DB"],
+    "keywords": ["Probabilistic databases", "Data lineage", "Trio"],
+    "note": "Trio keeps uncertain values and their lineage together, so an answer can carry both its confidence and its derivation. The thesis lists this demo’s authors under the title of reference [9]."
+  },
+  {
+    "ref": 3,
+    "title": "GProM: A Swiss Army Knife for Your Provenance Needs",
+    "citation": "Bahareh Arab, Su Feng, Boris Glavic, Seokki Lee, Xing Niu and Qitian Zeng · IEEE Data Engineering Bulletin 2018",
+    "url": "https://www.cs.uic.edu/~bglavic/dbgroup/bibliography/AF18.html",
+    "subjects": ["cs.DB"],
+    "keywords": ["Data lineage", "Query rewriting", "Middleware"],
+    "note": "GProM rewrites a request for provenance into a query the underlying database can execute. This puts lineage support in middleware rather than inside each database engine."
+  },
+  {
+    "ref": 4,
+    "title": "Column-Stores vs. Row-Stores: How Different Are They Really?",
+    "citation": "Daniel J. Abadi, Samuel R. Madden and Nabil Hachem · SIGMOD 2008",
+    "url": "https://www.cs.umd.edu/~abadi/papers/abadi-sigmod08.pdf",
+    "subjects": ["cs.DB"],
+    "keywords": ["Column stores", "Query execution", "Late materialization"],
+    "note": "Storing columns separately is only part of the story. The experiments isolate execution techniques, including delaying the reconstruction of full rows."
+  },
+  {
+    "ref": 5,
+    "title": "Provenance for Interactive Visualizations",
+    "citation": "Fotis Psallidas and Eugene Wu · HILDA 2018",
+    "url": "https://doi.org/10.1145/3209900.3209904",
+    "arxiv": "1805.02622",
+    "subjects": ["cs.DB"],
+    "keywords": ["Visualization", "Data lineage", "Interactive queries"],
+    "note": "Click a mark in a chart and ask which records produced it. The paper shows how to express interactions like this as provenance queries."
+  },
+  {
+    "ref": 6,
+    "title": "Perm: Processing Provenance and Data on the Same Data Model through Query Rewriting",
+    "citation": "Boris Glavic and Gustavo Alonso · ICDE 2009",
+    "url": "https://www.cs.uic.edu/~bglavic/dbgroup/assets/pdfpubls/GA09.pdf",
+    "subjects": ["cs.DB"],
+    "keywords": ["Query rewriting", "Data lineage", "PostgreSQL"],
+    "note": "Perm rewrites a relational query to return provenance alongside data. The result is relational too, so another SQL query can inspect it."
+  },
+  {
+    "ref": 7,
+    "kind": "Project",
+    "title": "Smoked Duck",
+    "citation": "Cited as unpublished in the thesis · link to the project repository",
+    "url": "https://github.com/cudbg/smokedduck",
+    "subjects": ["cs.DB"],
+    "keywords": ["Data lineage", "DuckDB", "Query execution"],
+    "note": "This is the project my thesis extended. It records which input rows contribute to each output while DuckDB’s operators run."
+  },
+  {
+    "ref": 8,
+    "title": "PUG: A Framework and Practical Implementation for Why and Why-Not Provenance",
+    "citation": "Seokki Lee, Bertram Ludäscher and Boris Glavic · The VLDB Journal 2019",
+    "url": "https://www.cs.uic.edu/~bglavic/dbgroup/bibliography/LL18.html",
+    "arxiv": "1808.05752",
+    "subjects": ["cs.DB"],
+    "keywords": ["Why-not provenance", "Datalog", "Query rewriting"],
+    "note": "PUG explains missing answers as well as returned ones. It builds a graph of the facts and rule applications relevant to the question. The arXiv link is the extended version."
+  },
+  {
+    "ref": 9,
+    "title": "An Introduction to ULDBs and the Trio System",
+    "citation": "Omar Benjelloun, Anish Das Sarma, Chris Hayworth and Jennifer Widom · Stanford InfoLab / IEEE Data Engineering Bulletin 2006",
+    "url": "http://sites.computer.org/debull/A06mar/A06MAR-CD.pdf#page=7",
+    "subjects": ["cs.DB"],
+    "keywords": ["Probabilistic databases", "Data lineage", "Trio"],
+    "note": "The uncertainty-lineage database model links alternative values to their derivations. TriQL extends SQL so a query can ask about lineage and confidence."
+  },
+  {
+    "ref": 10,
     "title": "Smoke: Fine-grained Lineage at Interactive Speed",
     "citation": "Fotis Psallidas and Eugene Wu · VLDB 2018",
-    "topic": "Data lineage",
+    "arxiv": "1801.07237",
+    "subjects": ["cs.DB"],
+    "keywords": ["Data lineage", "Query execution", "Interactive queries"],
     "url": "https://www.vldb.org/pvldb/vol11/p719-psallidas.pdf",
     "note": "If someone clicks a chart to inspect a result, rerunning the original query can be too slow. Smoke shows how recording row relationships during execution can make that later interaction fast."
   },
   {
+    "ref": 11,
     "title": "DuckDB: an Embeddable Analytical Database",
     "citation": "Mark Raasveldt and Hannes Mühleisen · SIGMOD 2019",
-    "topic": "Query engines",
+    "subjects": ["cs.DB"],
+    "keywords": ["DuckDB", "Query execution", "Vectorized execution"],
     "url": "https://duckdb.org/pdf/SIGMOD2019-demo-duckdb.pdf",
     "note": "Analytical queries don't require a separate database server. DuckDB brings a vectorized engine into the application process, the same execution model my thesis extended to answer lineage queries."
+  },
+  {
+    "ref": 12,
+    "title": "Provenance Semirings",
+    "citation": "Todd J. Green, Grigoris Karvounarakis and Val Tannen · PODS 2007",
+    "url": "https://www.cs.ucdavis.edu/~green/papers/pods07.pdf",
+    "subjects": ["cs.DB", "cs.LO"],
+    "keywords": ["Semirings", "Relational algebra", "Data lineage"],
+    "note": "Annotate each input tuple with a symbol. Multiplication records inputs used together; addition records alternative derivations of the same result."
+  },
+  {
+    "ref": 13,
+    "title": "You Say ‘What’, I Hear ‘Where’ and ‘Why’: (Mis-)Interpreting SQL to Derive Fine-Grained Provenance",
+    "citation": "Tobias Müller, Benjamin Dietrich and Torsten Grust · PVLDB 2018",
+    "url": "https://arxiv.org/abs/1805.11517",
+    "arxiv": "1805.11517",
+    "subjects": ["cs.DB"],
+    "keywords": ["Query rewriting", "Where-provenance", "Why-provenance"],
+    "note": "One query execution records control decisions. A second follows that record to compute dependencies rather than values, revealing where results came from and why they appeared."
+  },
+  {
+    "ref": 14,
+    "title": "Tracing the Lineage of View Data in a Warehousing Environment",
+    "citation": "Yingwei Cui, Jennifer Widom and Janet L. Wiener · ACM Transactions on Database Systems 2000",
+    "url": "https://doi.org/10.1145/357775.357777",
+    "subjects": ["cs.DB"],
+    "keywords": ["Data lineage", "Materialized views", "Data warehousing"],
+    "note": "Given a tuple in a warehouse view, which source tuples contributed to it? The paper studies how to trace those inputs through relational view definitions."
   }
 ]

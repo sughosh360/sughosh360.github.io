@@ -18,13 +18,15 @@ npm run build    # type-check + build to dist/
 |---|---|
 | Name, bio, contact links | `src/data/site.ts` |
 | Reading list | `src/data/books.json` (`status`: `reading`, `next` or `read`) |
-| Selected papers | `src/data/papers.json` (title, citation, topic, link and a short technical takeaway) |
+| Thesis references | `src/data/papers.json` (bibliography number, title, citation, link, subjects, keywords and reading note) |
 | Case studies and walkthroughs | `src/pages/notes/` |
 | Dated current-work feature | `src/pages/index.astro` |
 | Projects | `src/data/projects.json` |
 | Experience | `src/data/experience.json` (listed in file order, newest first) |
 
 Data files are typed; `@astrojs/check` (in `npm run build`) catches shape mismatches.
+
+For a verified arXiv version, set `arxiv` to its identifier and copy its subject codes into `subjects`. Without `arxiv`, subject codes are labeled as shelf assignments. Keep `keywords` editorial; use `kind` for sources that are not published papers.
 
 ## Deploy
 
