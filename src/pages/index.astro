@@ -1,4 +1,5 @@
 ---
+import TechnologyIndex from '../components/TechnologyIndex.astro';
 import ImpactHighlights from '../components/ImpactHighlights.astro';
 import projects from '../data/projects.json';
 import experience from '../data/experience.json';
@@ -43,6 +44,8 @@ import { site } from '../data/site';
     </div>
   </section>
 
+  <TechnologyIndex />
+
   <section id="experience">
     <h2>Experience</h2>
     <ExperienceTimeline items={experience} />
@@ -79,8 +82,8 @@ import { site } from '../data/site';
 
   <section id="reading">
     <h2>Papers &amp; reading</h2>
-    <p>Start with two papers behind my DuckDB research: one on why lineage needs to be fast, the other on the engine that made it possible to experiment.</p>
-    <a href="/reading/">Browse the reading shelf <span aria-hidden="true">→</span></a>
+    <p>Search the references behind my DuckDB thesis by author, topic, or technology. Each entry explains how the source connects to my research.</p>
+    <a href="/reading/">Browse the research index</a>
   </section>
 
   <section id="contact" class="contact">

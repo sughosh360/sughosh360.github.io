@@ -10,26 +10,61 @@ const groups = [
   { status: 'next', heading: 'Up next' },
   { status: 'read', heading: 'Read' },
 ] as const;
+const topics = [...new Set(papers.flatMap(paper => paper.topics))].sort();
 ---
-<Base title="Papers & reading | Sughosh Kaushik" description="Two papers behind my DuckDB research, what each explains, and a shelf of books I'm reading.">
+<Base title="Papers & reading | Sughosh Kaushik" description="Search the annotated references from SQL Execution of Smoked Duck by author, topic, technology, or venue, and explore Sughosh’s reading shelf.">
   <header class="intro">
-    <p class="eyebrow">Field notes / Reading shelf</p>
-    <h1>Papers &amp; reading</h1>
-    <p class="lead">A short reading path into database internals, plus the books on my shelf.</p>
-  </header>
-  <section aria-labelledby="papers">
-    <h2 id="papers">Papers behind the thesis</h2>
-    <p>I cited these papers in my thesis. Start with Smoke for the problem and DuckDB for the engine, then see how they fit together in the <a href="/notes/lineage-in-duckdb/">lineage case study</a>.</p>
-    <div class="papers">
-      {papers.map((paper) => (
-        <article>
-          <p class="eyebrow">{paper.topic}</p>
-          <h3><a href={paper.url}>{paper.title}</a></h3>
-          <p class="muted">{paper.citation}</p>
-          <p>{paper.note}</p>
-        </article>
-      ))}
+    <div>
+      <p class="eyebrow">Columbia University · M.S. thesis · 2022</p>
+      <h1>Papers &amp; reading</h1>
+      <p class="lead">Which input rows explain a query result? These are the sources behind my work on that question in DuckDB, with my notes on how each fits.</p>
+      <div class="links">
+        <a href="https://github.com/sughosh360/Thesis/blob/master/Smoked_Duck.pdf">Read the thesis</a>
+        <a href="/notes/lineage-in-duckdb/">Explore the case study</a>
+        <a href="#books">Bookshelf</a>
+      </div>
     </div>
+    <aside aria-labelledby="demo-title">
+      <p class="eyebrow">Follow-up publication · SIGMOD 2023</p>
+      <h2 id="demo-title"><a href="https://doi.org/10.1145/3555041.3589731">SmokedDuck Demonstration: SQLStepper</a></h2>
+      <p>Haneen Mohammed, Charlie Summers, <strong>Sughosh Kaushik</strong>, and Eugene Wu</p>
+      <p>Our demo lets you step through a query plan and inspect the rows behind a result.</p>
+    </aside>
+  </header>
+
+  <section aria-labelledby="papers" class="archive">
+    <h2 id="papers">Thesis bibliography</h2>
+    <form id="paper-search" role="search" aria-label="Search thesis references" hidden>
+      <label>Search references
+        <input name="q" type="search" placeholder="Title, author, keyword, year, or venue" autocomplete="off" />
+      </label>
+      <label>Research topic
+        <select name="topic">
+          <option value="">All topics</option>
+          {topics.map(topic => <option>{topic}</option>)}
+        </select>
+      </label>
+      <button type="reset">Clear filters</button>
+    </form>
+    <p role="status" class="status">{papers.length} references in thesis order</p>
+    <ol class="catalog" aria-label="Thesis references">
+      {papers.map(paper => (
+        <li id={`ref-${paper.number}`} data-topics={JSON.stringify(paper.topics)}>
+          <span class="ref" aria-label={`Reference ${paper.number}`}>[{paper.number}]</span>
+          <article>
+            <p class="publication">{paper.venue}{paper.year && ` · ${paper.year}`}</p>
+            <h3><a href={paper.url}>{paper.title}</a></h3>
+            <p class="authors">{paper.authors}</p>
+            <p class="note">{paper.note}</p>
+            {paper.annotation && <p class="source-note">{paper.annotation}</p>}
+            {paper.number === 7 && <a class="follow-up" href="https://doi.org/10.1145/3555041.3589731">Related demo · SQLStepper · Haneen Mohammed, Charlie Summers, Sughosh Kaushik, Eugene Wu · SIGMOD 2023</a>}
+            <ul class="tags" aria-label="Topics and keywords">
+              {[...paper.topics, ...paper.keywords].map(tag => <li>{tag}</li>)}
+            </ul>
+          </article>
+        </li>
+      ))}
+    </ol>
   </section>
   <section aria-labelledby="books">
     <h2 id="books">Bookshelf</h2>
@@ -38,13 +73,101 @@ const groups = [
     )}
   </section>
 </Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#paper-search')!;
+  const query = form.querySelector('input')!;
+  const topic = form.querySelector('select')!;
+  const status = document.querySelector('.status')!;
+  // Fold accents and punctuation so "Muller", "why not", and "1805.11517" are searchable.
+  function normalize(value: string) {
+    return value.toLowerCase().normalize('NFKD').replace(/\p{M}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  }
+  const records = [...document.querySelectorAll<HTMLElement>('.catalog > li')].map(element => ({
+    element,
+    topics: JSON.parse(element.dataset.topics!) as string[],
+    text: normalize(Array.from(element.querySelectorAll('p, h3, .tags li, .ref, .follow-up'), item => item.textContent).join(' ')),
+  }));
+
+  function filterRecords() {
+    const terms = normalize(query.value).split(/\s+/).filter(Boolean);
+    let count = 0;
+    for (const record of records) {
+      const matches = (!topic.value || record.topics.includes(topic.value)) && terms.every(term => record.text.includes(term));
+      record.element.hidden = !matches;
+      if (matches) count++;
+    }
+    status.textContent = count
+      ? `${count} of ${records.length} references in thesis order`
+      : 'No matching references. Try another term or clear the filters.';
+  }
+  function restore() {
+    const params = new URL(location.href).searchParams;
+    query.value = params.get('q') ?? '';
+    topic.value = params.get('topic') ?? '';
+    if (topic.selectedIndex < 0) topic.selectedIndex = 0;
+    filterRecords();
+  }
+  function update() {
+    filterRecords();
+    const url = new URL(location.href);
+    for (const control of [query, topic]) {
+      if (control.value) url.searchParams.set(control.name, control.value);
+      else url.searchParams.delete(control.name);
+    }
+    history.replaceState(history.state, '', url);
+  }
+  restore();
+  form.hidden = false;
+  query.addEventListener('input', update);
+  topic.addEventListener('change', update);
+  form.addEventListener('submit', event => { event.preventDefault(); update(); });
+  form.addEventListener('reset', event => {
+    event.preventDefault();
+    query.value = '';
+    topic.value = '';
+    update();
+    query.focus();
+  });
+  window.addEventListener('pageshow', restore);
+  window.addEventListener('popstate', restore);
+</script>
+
 <style>
-  .intro { padding-block: 3rem 1rem; }
-  .intro h1 { font-size: clamp(2.8rem, 6vw, 4.5rem); margin: .5rem 0; }
-  .papers { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; margin-top: 1.2rem; }
-  article { background: var(--card); border: 1px solid var(--border); border-radius: .6rem; padding: 1.25rem; }
-  article h3 { margin: .6rem 0 .3rem; }
-  article p { margin: .4rem 0 0; }
-  article .muted { font-size: .88rem; }
-  section > p { max-width: 60ch; }
+  .intro { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: clamp(1.5rem, 5vw, 4rem); padding: clamp(2rem, 5vw, 4rem) 0; }
+  .intro h1 { font-size: clamp(2.9rem, 6vw, 4.75rem); margin: .4rem 0; line-height: 1.08; }
+  .intro .lead { margin: 1rem 0; }
+  .links, .tags { display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+  .links a { font-weight: 600; }
+  aside { color: #edf5e8; background: #183931; padding: clamp(1.2rem, 3vw, 2rem); border-radius: .8rem; border-top: 4px solid #bbd998; }
+  aside .eyebrow { color: #cae6aa; }
+  aside a { color: inherit; text-decoration-thickness: 1px; }
+  aside a:focus-visible { outline-color: #cae6aa; }
+  aside h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); margin-block: .7rem; }
+  aside p { margin: .65rem 0 0; }
+  .archive { border-top: 1px solid var(--border); }
+  form { background: var(--wash); padding: 1rem; border-radius: .65rem; display: flex; align-items: end; flex-wrap: wrap; gap: .85rem; }
+  form[hidden], .catalog > li[hidden] { display: none; }
+  label { display: grid; gap: .3rem; font-weight: 600; min-width: 0; }
+  label:first-child { flex: 2 1 18rem; }
+  label:nth-child(2) { flex: 1 1 12rem; }
+  input, select, button { font: inherit; padding: .6rem .8rem; border: 1px solid var(--muted); border-radius: .35rem; background: var(--card); color: var(--fg); min-width: 0; }
+  button { cursor: pointer; background: transparent; }
+  button:hover { color: var(--accent); text-decoration: underline; }
+  .status, .publication, .ref { font: 500 .85rem/1.5 var(--mono); }
+  .status { margin: 1.25rem 0 .5rem; color: var(--muted); }
+  .catalog { list-style: none; margin: 0; padding: 0; }
+  .catalog > li { display: grid; grid-template-columns: 3.3rem minmax(0,1fr); gap: .6rem; padding: 1.4rem 0; border-top: 1px solid var(--border); }
+  .ref { color: var(--accent); padding-top: .1rem; }
+  article { max-width: 53rem; }
+  .publication { color: var(--muted); margin: 0; }
+  h3 { font: 500 clamp(1.35rem, 2.3vw, 1.7rem)/1.25 Georgia, serif; margin: .35rem 0; }
+  h3 a { color: var(--fg); text-decoration: none; }
+  h3 a:hover { text-decoration: underline; color: var(--accent); }
+  .authors { margin: .3rem 0; }
+  .note { margin: .65rem 0; color: var(--muted); }
+  .source-note { padding-inline-start: .75rem; border-left: 2px solid var(--accent); color: var(--muted); margin: .75rem 0; font-size: .95rem; }
+  .tags { list-style: none; padding: 0; margin: .75rem 0 0; gap: .3rem .45rem; }
+  .tags li { background: var(--wash); color: var(--accent); padding: .15rem .5rem; border-radius: .25rem; font-size: .85rem; }
+  @media (max-width: 45rem) { .intro { grid-template-columns: 1fr; } .catalog > li { grid-template-columns: 2rem minmax(0, 1fr); } }
 </style>

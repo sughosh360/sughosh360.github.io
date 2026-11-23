@@ -18,10 +18,11 @@ npm run build    # type-check + build to dist/
 |---|---|
 | Name, bio, contact links | `src/data/site.ts` |
 | Reading list | `src/data/books.json` (`status`: `reading`, `next` or `read`) |
-| Selected papers | `src/data/papers.json` (title, citation, topic, link and a short technical takeaway) |
+| Numbered thesis references | `src/data/papers.json` (bibliography number, citation metadata, topics, keywords, source link, and reading note) |
 | Case studies and walkthroughs | `src/pages/notes/` |
 | Dated current-work feature | `src/pages/index.astro` |
 | Projects | `src/data/projects.json` |
+| Technologies and examples | `src/data/technologies.json` |
 | Experience | `src/data/experience.json` (listed in file order, newest first) |
 
 Data files are typed; `@astrojs/check` (in `npm run build`) catches shape mismatches.
