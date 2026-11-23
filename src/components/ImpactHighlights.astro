@@ -1,22 +1,24 @@
 ---
 const highlights = [
   {
+    company: 'AWS · Amazon Redshift',
+    result: 'Restored Zero-ETL ingestion',
+    detail: 'When a customer’s first data load failed, I traced the failure to two services interpreting Parquet dates and timestamps differently. I worked across teams to get ingestion running again.',
+  },
+  {
+    company: 'AWS · Aurora MySQL',
+    result: 'Fixed a slowdown in database reads',
+    detail: 'I tracked a performance regression in Aurora MySQL 8.4 to the threads that handle read I/O and fixed it. I also made the maximum SQL digest length configurable across server restarts.',
+  },
+  {
     company: 'Eightfold AI',
-    metric: '10×',
-    result: 'analytics performance',
-    detail: 'Dashboards were timing out. I moved them to QuickSight backed by materialized views, bringing response times down to five seconds.',
+    result: '5-second analytics dashboards',
+    detail: 'I replaced QuickSight’s in-memory dashboards with dashboards backed by materialized views. Queries that had timed out returned in five seconds.',
   },
   {
     company: 'SAP SuccessFactors',
-    metric: '50%',
-    result: 'lower API memory use',
-    detail: 'I worked with two architects to rebuild CRUD APIs for the Metadata Framework. The new implementation used half the memory and improved performance sixfold.',
-  },
-  {
-    company: 'Eightfold AI',
-    metric: '30%',
-    result: 'shorter analytics jobs',
-    detail: 'I implemented a new Spark pipeline for analytics jobs. It cut runtime by 30% on a team responsible for moving customer data from RDS to Redshift.',
+    result: '50% less memory for CRUD APIs',
+    detail: 'I worked with two architects to rebuild the APIs that create, read, update, and delete records. The new implementation used half the memory.',
   },
 ];
 ---
@@ -27,8 +29,7 @@ const highlights = [
       <details>
         <summary>
           <span class="company">{item.company}</span>
-          <strong>{item.metric}</strong>
-          <span class="result">{item.result}</span>
+          <strong>{item.result}</strong>
           <span class="read"><span class="closed-label">See the work</span><span class="open-label">Hide details</span><i aria-hidden="true"></i></span>
         </summary>
         <p>{item.detail}</p>
@@ -40,25 +41,18 @@ const highlights = [
 <style>
   .impact { padding: 1.75rem 0 2.25rem; }
   h2 { font: 650 1rem/1.5 system-ui, sans-serif; letter-spacing: 0; margin: 0 0 1rem; }
-  .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: start; }
+  .outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.35rem 2rem; align-items: start; }
   details { border-top: 2px solid var(--accent); }
-  summary { cursor: pointer; display: grid; padding-top: 1rem; list-style: none; }
+  summary { cursor: pointer; display: grid; gap: .35rem; padding-top: .85rem; list-style: none; }
   summary::-webkit-details-marker { display: none; }
   .company { font: 600 .85rem/1.5 var(--mono); color: var(--muted); }
-  strong { font: 500 clamp(2.75rem, 4.7vw, 4rem)/1.18 Georgia, serif; letter-spacing: -.045em; color: var(--fg); }
-  .result { font-weight: 600; }
-  .read { display: inline-flex; align-items: center; gap: .4rem; margin-top: .65rem; font-size: .9rem; color: var(--accent); }
+  strong { font: 500 clamp(1.45rem, 2.6vw, 2.1rem)/1.16 Georgia, serif; letter-spacing: -.02em; }
+  .read { display: inline-flex; align-items: center; gap: .4rem; font-size: .9rem; color: var(--accent); }
   .read i::before { content: '+'; font-style: normal; }
   summary:hover .read { text-decoration: underline; }
   details[open] i::before { content: '−'; }
   .open-label, details[open] .closed-label { display: none; }
   details[open] .open-label { display: inline; }
   p { color: var(--muted); margin: .55rem 0 0; }
-  @media (max-width: 40rem) {
-    .outcomes { grid-template-columns: 1fr; gap: 1rem; }
-    summary { grid-template-columns: 5.5rem 1fr; column-gap: .9rem; }
-    strong { grid-column: 1; grid-row: 1 / span 3; align-self: center; }
-    .company, .result, .read { grid-column: 2; }
-    .read { margin-top: .2rem; }
-  }
+  @media (max-width: 40rem) { .outcomes { grid-template-columns: 1fr; gap: 1rem; } }
 </style>
