@@ -18,6 +18,7 @@ npm run build    # type-check + build to dist/
 |---|---|
 | Name, bio, contact links | `src/data/site.ts` |
 | Reading list | `src/data/books.json` (`status`: `reading`, `next` or `read`) |
+| Publications, poster, and thesis | `src/data/publications.json` (authorship, venue, type, date, topics, and primary source links) |
 | Numbered thesis references | `src/data/papers.json` (bibliography number, citation metadata, topics, keywords, source link, and reading note) |
 | Case studies and walkthroughs | `src/pages/notes/` |
 | Dated current-work feature | `src/pages/index.astro` |
