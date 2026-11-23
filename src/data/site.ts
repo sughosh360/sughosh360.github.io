@@ -29,7 +29,7 @@ export const site = {
   name: 'Sughosh Kaushik',
   title: 'Sughosh Kaushik | Database & infrastructure engineer',
   description: 'Database and infrastructure engineer working on Amazon Redshift query execution. Explore my engineering results, DuckDB research, and résumé, or get in touch about a role.',
-  bio: 'I build the engines behind SQL queries and the pipelines that feed them. At AWS, I work on query execution in Amazon Redshift. At Eightfold, I led a five-person infrastructure team.',
+  bio: 'I build the engines behind SQL queries and the pipelines that feed them. At AWS, I work on query execution in Amazon Redshift.',
   email,
   recruitingUrl: `mailto:${email}?subject=${encodeURIComponent('Engineering role and introductory call')}`,
   resumeUrl: '/sughosh-kaushik-resume.pdf',
