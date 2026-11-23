@@ -20,6 +20,7 @@ export interface Experience {
   org: string;
   period: string;
   bullets: string[];
+  topics: string[];
 }
 
 export const site = {

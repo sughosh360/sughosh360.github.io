@@ -17,19 +17,29 @@ const initials = (org: string) =>
 
 // Preserve file order (newest first); group only for stable ordering of the filter chips.
 const orgs = [...new Set(items.map((i) => i.org))];
+const topics = [...new Set(items.flatMap((item) => item.topics))].sort();
 const isCurrent = (period: string) => /present/i.test(period);
 ---
 
 <div class="exp" data-timeline>
-  <div class="filters" role="group" aria-label="Filter experience by company">
+  <div class="filters" hidden role="group" aria-label="Filter experience by company">
     <button class="chip is-active" data-org="" aria-pressed="true">All</button>
     {orgs.map((org) => <button class="chip" data-org={org} aria-pressed="false">{org}</button>)}
   </div>
 
+  <label class="topic-filter" hidden>
+    Filter by topic
+    <select>
+      <option value="">All topics</option>
+      {topics.map((topic) => <option value={topic}>{topic}</option>)}
+    </select>
+  </label>
+  <p class="muted results" role="status"></p>
+
   <ol class="tl">
     {
       items.map((item) => (
-        <li class="tl-item" data-org={item.org}>
+        <li class="tl-item" data-org={item.org} data-topics={JSON.stringify(item.topics)}>
           <span class="dot" aria-hidden="true">{initials(item.org)}</span>
           <article class="card">
             <div class="card-top">
@@ -48,6 +58,9 @@ const isCurrent = (period: string) => /present/i.test(period);
                 {item.bullets.map((bullet) => <li>{bullet}</li>)}
               </ul>
             )}
+            <ul class="topics" aria-label="Topics">
+              {item.topics.map((topic) => <li>{topic}</li>)}
+            </ul>
           </article>
         </li>
       ))
@@ -57,39 +70,50 @@ const isCurrent = (period: string) => /present/i.test(period);
 
 <script>
   const root = document.querySelector('[data-timeline]');
-  if (root) {
-    root.setAttribute('data-js', '');
-    // Filter chips
-    const chips = root.querySelectorAll<HTMLButtonElement>('.chip');
-    const items = root.querySelectorAll<HTMLElement>('.tl-item');
-    chips.forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const org = chip.dataset.org ?? '';
-        chips.forEach((c) => {
-          c.classList.toggle('is-active', c === chip);
-          c.setAttribute('aria-pressed', String(c === chip));
-        });
-        items.forEach((el) => {
-          const match = org === '' || el.dataset.org === org;
-          el.hidden = !match;
-          if (match) el.classList.add('is-visible');
-        });
-      });
-    });
+  const filters = root?.querySelector<HTMLElement>('.filters');
+  const topicLabel = root?.querySelector<HTMLLabelElement>('.topic-filter');
+  const topicSelect = topicLabel?.querySelector('select');
+  const results = root?.querySelector('.results');
 
-    // Scroll reveal
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('is-visible');
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    items.forEach((el) => io.observe(el));
+  if (root && filters && topicLabel && topicSelect && results) {
+    const chips = Array.from(filters.querySelectorAll<HTMLButtonElement>('.chip'));
+    const items = Array.from(root.querySelectorAll<HTMLElement>('.tl-item'), (element) => ({
+      element,
+      topics: new Set<string>(JSON.parse(element.dataset.topics ?? '[]')),
+    }));
+    let selectedOrg = '';
+
+    function updateResults() {
+      const topic = topicSelect?.value ?? '';
+      let count = 0;
+      for (const { element, topics } of items) {
+        const match = (!selectedOrg || element.dataset.org === selectedOrg)
+          && (!topic || topics.has(topic));
+        element.hidden = !match;
+        if (match) count += 1;
+      }
+      if (results) {
+        results.textContent = count === 0
+          ? 'No roles match these filters. Try a different company or topic.'
+          : `${count} ${count === 1 ? 'role' : 'roles'} shown`;
+      }
+    }
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        selectedOrg = chip.dataset.org ?? '';
+        for (const button of chips) {
+          button.classList.toggle('is-active', button === chip);
+          button.setAttribute('aria-pressed', String(button === chip));
+        }
+        updateResults();
+      });
+    }
+
+    topicSelect.addEventListener('change', updateResults);
+    filters.hidden = false;
+    topicLabel.hidden = false;
+    updateResults();
   }
 </script>
 
@@ -102,7 +126,34 @@ const isCurrent = (period: string) => /present/i.test(period);
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  .filters[hidden], .topic-filter[hidden] { display: none; }
+  .topic-filter { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; }
+  .topic-filter select {
+    font: inherit;
+    color: var(--fg);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .45rem;
+    padding: .35rem .65rem;
+  }
+  .results { margin: .65rem 0 1rem; font-size: .9rem; }
+  .results:empty { display: none; }
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: .4rem;
+    padding: 0;
+    margin: .75rem 0 0;
+  }
+  .topics li {
+    padding: .15rem .55rem;
+    border-radius: .35rem;
+    color: var(--accent);
+    background: var(--wash);
+    font-size: .85rem;
   }
   .chip {
     padding: 0.35rem 0.9rem;
@@ -151,16 +202,6 @@ const isCurrent = (period: string) => /present/i.test(period);
     position: relative;
     padding-left: 4.25rem;
     padding-bottom: 1.9rem;
-  }
-  .exp[data-js] .tl-item {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .exp[data-js] .tl-item.is-visible,
-  .tl-item.is-visible {
-    opacity: 1;
-    transform: none;
   }
   .tl-item:last-child {
     padding-bottom: 0;
@@ -277,11 +318,6 @@ const isCurrent = (period: string) => /present/i.test(period);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .exp[data-js] .tl-item {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
     .card,
     .dot,
     .chip {

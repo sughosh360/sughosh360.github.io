@@ -3,61 +3,98 @@
     "id": "aws-redshift-query",
     "role": "Software Engineer, Redshift Query Processing / Execution",
     "org": "Amazon Web Services",
-    "period": "Sep 2026 \u2013 Present",
+    "period": "Sep 2026 – Present",
     "bullets": [
       "Working on the query processing and execution engine of Amazon Redshift."
+    ],
+    "topics": [
+      "Query execution",
+      "Databases"
     ]
   },
   {
     "id": "aws-redshift-zeroetl",
     "role": "Software Engineer, Redshift Data Plane ZeroETL",
     "org": "Amazon Web Services",
-    "period": "May 2025 \u2013 Present",
+    "period": "May 2025 – Present",
     "bullets": [
-      "Built the Redshift Data Plane's ZeroETL integrations."
+      "Improved Redshift Serverless reliability by fixing uneven work assignment and validating the rollout with integration tests.",
+      "Unblocked Zero-ETL ingestion by tracing a Parquet date and timestamp parsing mismatch across services.",
+      "Redesigned locking for catalog and maintenance tasks after tracing integration restarts to lock starvation."
+    ],
+    "topics": [
+      "Data pipelines",
+      "Reliability"
     ]
   },
   {
     "id": "aws-aurora-mysql",
     "role": "Software Engineer, Aurora MySQL",
     "org": "Amazon Web Services",
-    "period": "Nov 2024 \u2013 May 2025",
+    "period": "Nov 2024 – May 2025",
     "bullets": [
-      "Worked on Amazon Aurora MySQL."
+      "Fixed a read I/O performance regression in Aurora MySQL 8.4."
+    ],
+    "topics": [
+      "Databases",
+      "Reliability"
     ]
   },
   {
     "id": "eightfold",
     "role": "Senior Software Engineer",
     "org": "Eightfold AI",
-    "period": "Jun 2022 \u2013 Oct 2024",
+    "period": "Jun 2022 – Oct 2024",
     "bullets": [
-      "Built ETL pipelines for the analytics infrastructure.",
-      "Improved performance of the analytics dashboard.",
-      "Maintained the data warehouse infrastructure behind dashboard analytics.",
-      "Solved critical customer issues and rolled out features across customers."
+      "Managed a five-person core infrastructure team and maintained Solr search infrastructure on AWS.",
+      "Helped build near-real-time ETL pipelines from Amazon RDS to Redshift with a two-hour SLA.",
+      "Improved analytics performance 10× and brought dashboard response times to five seconds with materialized views in QuickSight.",
+      "Reduced Spark analytics job runtime by 30%."
+    ],
+    "topics": [
+      "Data pipelines",
+      "Performance"
+    ]
+  },
+  {
+    "id": "eightfold-intern",
+    "role": "Software Engineering Intern",
+    "org": "Eightfold AI",
+    "period": "Jun 2021 – Jul 2021",
+    "bullets": [
+      "Built a test framework that could stub multiple AWS clients in one unit test."
+    ],
+    "topics": [
+      "Reliability"
     ]
   },
   {
     "id": "sap",
     "role": "Software Developer",
     "org": "SAP SuccessFactors",
-    "period": "Sep 2017 \u2013 Jan 2021",
+    "period": "Sep 2017 – Jan 2021",
     "bullets": [
       "Built critical components of the Metadata Framework (MDF), SuccessFactors' cloud extensibility platform, in Java/Spring over Oracle, MySQL, and SAP HANA.",
       "Designed schemas, wrote stored procedures, and tuned SQL for MDF on Oracle and SAP HANA.",
       "Built Generic Object Change Request, a service layer for composite objects, OData APIs and generic UI; CRUD APIs cut memory by 50% and improved performance 6x.",
       "Built a persistence proxy layer to migrate high-volume objects from single- to multi-table storage without customer data loss.",
       "Added guardrails, batching and pagination to stop OOM timeouts and GC pauses on ~4 GB objects; benchmarked and presented the new model to 12 module teams."
+    ],
+    "topics": [
+      "Databases",
+      "Performance"
     ]
   },
   {
     "id": "microsoft",
     "role": "Summer Intern",
     "org": "Microsoft",
-    "period": "May 2016 \u2013 Jul 2016",
+    "period": "May 2016 – Jul 2016",
     "bullets": [
       "Analyzed feasibility of Windows Narrator recognizing PDF hyperlinks in the Edge PDF reader to help accessibility users."
+    ],
+    "topics": [
+      "Accessibility"
     ]
   }
 ]

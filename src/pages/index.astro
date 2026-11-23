@@ -47,6 +47,35 @@ import { site } from '../data/site';
     <ExperienceTimeline items={experience} />
   </section>
 
+  <section id="education">
+    <h2>Education &amp; recognition</h2>
+    <div class="grid">
+      <details class="credential" id="columbia">
+        <summary>
+          <strong>Columbia University</strong>
+          <span>M.S. in Computer Science · 2022</span>
+        </summary>
+        <p>Advised by Eugene Wu, I instrumented DuckDB’s SQL operators to capture lineage and built indexes to query it interactively.</p>
+        <ul>
+          <li>Placed third in the SIGMOD 2022 Student Research Competition.</li>
+          <li>Received a Columbia Engineering Graduate Student Council grant for research on lineage in vectorized engines.</li>
+          <li>Selected for the 2022 Olam Ventures Startup Challenge fellowship.</li>
+        </ul>
+        <a href="/notes/lineage-in-duckdb/">Explore the thesis and research poster</a>
+      </details>
+      <details class="credential" id="rvce">
+        <summary>
+          <strong>R.V. College of Engineering</strong>
+          <span>B.E. in Computer Science · 2017</span>
+        </summary>
+        <ul>
+          <li>Graduated in the top 5% of my class and earned the graduating class’s best project award.</li>
+          <li>Represented the college on a team that qualified among the top 50 for the ACM ICPC India finals.</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
   <section id="reading">
     <p class="eyebrow">03 / Bookshelf</p>
     <h2>Papers &amp; reading</h2>
@@ -71,6 +100,13 @@ import { site } from '../data/site';
   .now p:not(.eyebrow) { margin: 0 0 .75rem; }
   .now + section { border-top: 0; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+  #education .grid { align-items: start; }
+  .credential { padding: 1rem 1.15rem; border: 1px solid var(--border); border-radius: .75rem; background: var(--card); }
+  .credential summary { cursor: pointer; }
+  .credential summary::marker { color: var(--accent); }
+  .credential summary span { display: block; margin-inline-start: 1rem; color: var(--muted); }
+  .credential ul { padding-inline-start: 1.25rem; }
+  .credential li + li { margin-top: .35rem; }
   .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem 1.2rem; }
   .hero .actions { margin-top: 1.5rem; }
   #reading > p:not(.eyebrow) { max-width: 64ch; }
