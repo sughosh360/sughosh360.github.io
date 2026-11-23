@@ -46,7 +46,7 @@
     "org": "Eightfold AI",
     "period": "Jun 2022 – Oct 2024",
     "bullets": [
-      "Managed a five-person core infrastructure team and maintained Solr search infrastructure on AWS.",
+      "Maintained Solr search infrastructure on AWS.",
       "Helped build near-real-time ETL pipelines from Amazon RDS to Redshift with a two-hour SLA.",
       "Improved analytics performance 10× and brought dashboard response times to five seconds with materialized views in QuickSight.",
       "Reduced Spark analytics job runtime by 30%."
