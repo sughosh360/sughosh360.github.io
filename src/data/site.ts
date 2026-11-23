@@ -32,7 +32,7 @@ export const site = {
   role,
   title: `Sughosh Kaushik | ${role}`,
   description: 'Sughosh Kaushik is a software engineer at AWS. Explore his work on Amazon Redshift and Aurora MySQL, his engineering experience, and his research at Columbia.',
-  bio: 'At AWS, I work on the engine that runs queries in Amazon Redshift. I’ve also fixed data ingestion failures in Redshift and a read performance regression in Aurora MySQL.',
+  bio: 'At AWS, I work on the engine that runs queries in Amazon Redshift. I’ve also worked on the Aurora MySQL engine and on zero-ETL integrations that replicate data into Redshift in near real time.',
   email,
   recruitingUrl: `mailto:${email}?subject=${encodeURIComponent('Engineering role and introductory call')}`,
   links: [
