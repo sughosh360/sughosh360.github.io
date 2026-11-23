@@ -1,16 +1,252 @@
 [
   {
-    "title": "Smoke: Fine-grained Lineage at Interactive Speed",
-    "citation": "Fotis Psallidas and Eugene Wu · VLDB 2018",
-    "topic": "Data lineage",
-    "url": "https://www.vldb.org/pvldb/vol11/p719-psallidas.pdf",
-    "note": "If someone clicks a chart to inspect a result, rerunning the original query can be too slow. Smoke shows how recording row relationships during execution can make that later interaction fast."
+    "number": 1,
+    "title": "Data Visualization Market",
+    "authors": "Fortune Business Insights",
+    "venue": "Market research report",
+    "year": null,
+    "topics": [
+      "Visualization"
+    ],
+    "keywords": [
+      "Business intelligence",
+      "Markets"
+    ],
+    "note": "The opening chapter cites this industry report to motivate the growing use of interactive charts and dashboards.",
+    "url": "https://www.fortunebusinessinsights.com/data-visualization-market-103259"
   },
   {
+    "number": 2,
+    "title": "Trio: A System for Data, Uncertainty, and Lineage",
+    "authors": "Parag Agrawal, Omar Benjelloun, Anish Das Sarma, Chris Hayworth, Shubha Nabar, Tomoe Sugihara, Jennifer Widom",
+    "venue": "VLDB · system demonstration",
+    "year": 2006,
+    "topics": [
+      "Probabilistic databases",
+      "Data provenance"
+    ],
+    "keywords": [
+      "ULDBs",
+      "TriQL"
+    ],
+    "note": "Trio lets a query carry possible values and the evidence for each one. The thesis introduces it as an example of capturing lineage while evaluating SQL.",
+    "url": "https://theory.stanford.edu/~sunabar/papers/demo.pdf",
+    "annotation": "The thesis prints “An Introduction to ULDBs and the Trio System” here and at [9]. The linked VLDB demonstration matches the seven authors listed for [2]."
+  },
+  {
+    "number": 3,
+    "title": "GProM – A Swiss Army Knife for Your Provenance Needs",
+    "authors": "Bahareh Arab, Su Feng, Boris Glavic, Seokki Lee, Xing Niu, Qitian Zeng",
+    "venue": "IEEE Data Engineering Bulletin",
+    "year": 2018,
+    "topics": [
+      "Query rewriting",
+      "Data provenance"
+    ],
+    "keywords": [
+      "Middleware",
+      "Annotations",
+      "SQL"
+    ],
+    "note": "GProM translates requests for provenance into queries that run on an underlying database. The thesis places this middleware approach alongside approaches that instrument physical operators.",
+    "url": "https://www.cs.uic.edu/~bglavic/dbgroup/members/bglavic.html#AF18"
+  },
+  {
+    "number": 4,
+    "title": "Column-Stores vs. Row-Stores: How Different Are They Really?",
+    "authors": "Daniel J. Abadi, Samuel R. Madden, Nabil Hachem",
+    "venue": "SIGMOD",
+    "year": 2008,
+    "topics": [
+      "Query execution"
+    ],
+    "keywords": [
+      "Columnar storage",
+      "Late materialization",
+      "OLAP"
+    ],
+    "note": "A column store can defer reconstructing rows until an operator needs them. This helps explain why DuckDB’s selection vectors are useful when recording which input rows survive a filter.",
+    "url": "https://doi.org/10.1145/1376616.1376712"
+  },
+  {
+    "number": 5,
+    "title": "Provenance for Interactive Visualizations",
+    "authors": "Fotis Psallidas, Eugene Wu",
+    "venue": "HILDA · Workshop on Human-In-the-Loop Data Analytics",
+    "year": 2018,
+    "topics": [
+      "Visualization",
+      "Data provenance"
+    ],
+    "keywords": [
+      "Brushing and linking",
+      "Backward tracing"
+    ],
+    "note": "When someone selects a mark in a chart, a lineage query can identify the records behind it. That interaction supplies the latency motivation for the thesis.",
+    "url": "https://doi.org/10.1145/3209900.3209904"
+  },
+  {
+    "number": 6,
+    "title": "Perm: Processing Provenance and Data on the Same Data Model through Query Rewriting",
+    "authors": "Boris Glavic, Gustavo Alonso",
+    "venue": "ICDE",
+    "year": 2009,
+    "topics": [
+      "Query rewriting",
+      "Data provenance"
+    ],
+    "keywords": [
+      "PostgreSQL",
+      "SQL",
+      "Relational algebra"
+    ],
+    "note": "Perm rewrites relational queries so their results carry provenance. It provides a point of comparison for the thesis design, which captures relationships inside DuckDB operators.",
+    "url": "https://doi.org/10.1109/ICDE.2009.15"
+  },
+  {
+    "number": 7,
+    "title": "Smoked Duck",
+    "authors": "Columbia WuLab",
+    "venue": "Research project · unpublished when cited",
+    "year": null,
+    "topics": [
+      "Query execution",
+      "Data provenance"
+    ],
+    "keywords": [
+      "DuckDB",
+      "SmokedDuck",
+      "Vectorized execution",
+      "OLAP"
+    ],
+    "note": "Smoked Duck records row relationships as a vectorized query runs. My thesis built a physical scan and integrated lineage indexes so SQL could query those mappings.",
+    "url": "https://haneensa.github.io/smokedduck-intro/",
+    "annotation": "The 2022 bibliography lists work in progress. SQLStepper, the related SIGMOD demonstration, appeared in 2023."
+  },
+  {
+    "number": 8,
+    "title": "PUG: A Framework and Practical Implementation for Why and Why-Not Provenance",
+    "authors": "Seokki Lee, Bertram Ludäscher, Boris Glavic",
+    "venue": "The VLDB Journal",
+    "year": 2019,
+    "topics": [
+      "Data provenance",
+      "Query rewriting"
+    ],
+    "keywords": [
+      "Datalog",
+      "Missing answers",
+      "Provenance graphs"
+    ],
+    "note": "PUG explains both why a result exists and why an expected answer is missing. That second question extends the thesis’s central example of tracing an existing output row.",
+    "url": "https://doi.org/10.1007/s00778-018-0518-5"
+  },
+  {
+    "number": 9,
+    "title": "An Introduction to ULDBs and the Trio System",
+    "authors": "Omar Benjelloun, Anish Das Sarma, Chris Hayworth, Jennifer Widom",
+    "venue": "Stanford InfoLab · also in IEEE Data Engineering Bulletin",
+    "year": 2006,
+    "topics": [
+      "Probabilistic databases",
+      "Query rewriting"
+    ],
+    "keywords": [
+      "ULDBs",
+      "TriQL",
+      "Uncertain data"
+    ],
+    "note": "This introduction describes how Trio represents uncertain values and tracks their origins. It gives the data model behind the demonstration associated with reference [2].",
+    "url": "https://cs.stanford.edu/people/widom/pubs.html#:~:text=An%20Introduction%20to%20ULDBs"
+  },
+  {
+    "number": 10,
+    "title": "Smoke: Fine-grained Lineage at Interactive Speed",
+    "authors": "Fotis Psallidas, Eugene Wu",
+    "venue": "Proceedings of the VLDB Endowment",
+    "year": 2018,
+    "topics": [
+      "Data provenance",
+      "Query execution",
+      "Visualization"
+    ],
+    "keywords": [
+      "Lineage indexes",
+      "Interactive latency",
+      "SMOKE"
+    ],
+    "note": "Smoke captures relationships between rows during query execution so a later chart interaction can follow them quickly. Smoked Duck brings this idea to a vectorized execution engine.",
+    "url": "https://www.vldb.org/pvldb/vol11/p719-psallidas.pdf"
+  },
+  {
+    "number": 11,
     "title": "DuckDB: an Embeddable Analytical Database",
-    "citation": "Mark Raasveldt and Hannes Mühleisen · SIGMOD 2019",
-    "topic": "Query engines",
-    "url": "https://duckdb.org/pdf/SIGMOD2019-demo-duckdb.pdf",
-    "note": "Analytical queries don't require a separate database server. DuckDB brings a vectorized engine into the application process, the same execution model my thesis extended to answer lineage queries."
+    "authors": "Mark Raasveldt, Hannes Mühleisen",
+    "venue": "SIGMOD · system demonstration",
+    "year": 2019,
+    "topics": [
+      "Query execution"
+    ],
+    "keywords": [
+      "DuckDB",
+      "OLAP",
+      "Embedded databases",
+      "Vectorized execution"
+    ],
+    "note": "DuckDB runs analytical queries in the application process. Its vectorized operators, data chunks, and index joins form the execution environment that the thesis extends.",
+    "url": "https://doi.org/10.1145/3299869.3320212"
+  },
+  {
+    "number": 12,
+    "title": "Provenance Semirings",
+    "authors": "Todd J. Green, Grigoris Karvounarakis, Val Tannen",
+    "venue": "PODS · Symposium on Principles of Database Systems",
+    "year": 2007,
+    "topics": [
+      "Data provenance"
+    ],
+    "keywords": [
+      "Semirings",
+      "Polynomials",
+      "Relational algebra"
+    ],
+    "note": "Semirings describe how annotations combine when a query has alternative or joint derivations. The thesis uses them to distinguish derivation polynomials from sets of contributing rows.",
+    "url": "https://doi.org/10.1145/1265530.1265535"
+  },
+  {
+    "number": 13,
+    "title": "You Say ‘What’, I Hear ‘Where’ and ‘Why’: (Mis-)Interpreting SQL to Derive Fine-Grained Provenance",
+    "authors": "Tobias Müller, Benjamin Dietrich, Torsten Grust",
+    "venue": "arXiv:1805.11517 · extended version",
+    "year": 2018,
+    "topics": [
+      "Query rewriting",
+      "Data provenance"
+    ],
+    "keywords": [
+      "SQL",
+      "Cell-level lineage",
+      "User-defined functions"
+    ],
+    "note": "Reinterpreting a SQL query lets its operators compute dependencies at the level of individual cells. The thesis discusses this as a logical approach to capturing provenance.",
+    "url": "https://arxiv.org/abs/1805.11517"
+  },
+  {
+    "number": 14,
+    "title": "Tracing the Lineage of View Data in a Warehousing Environment",
+    "authors": "Yingwei Cui, Jennifer Widom, Janet L. Wiener",
+    "venue": "ACM Transactions on Database Systems",
+    "year": 2000,
+    "topics": [
+      "Data warehousing",
+      "Data provenance"
+    ],
+    "keywords": [
+      "Materialized views",
+      "Why-provenance",
+      "Backward tracing"
+    ],
+    "note": "Given one item in a warehouse view, which source records produced it? This formulation anchors the thesis definition of lineage and the example of tracing an aggregate back to its inputs.",
+    "url": "https://doi.org/10.1145/357775.357777"
   }
 ]

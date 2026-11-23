@@ -1,0 +1,44 @@
+[
+  {
+    "area": "Database engines & query processing",
+    "tools": ["C", "C++", "SQL", "DuckDB", "Smoked Duck", "Amazon Redshift", "Redshift Serverless", "Aurora MySQL", "Apache Parquet", "TPC-H", "Vectorized execution", "Lineage indexes", "Index joins", "Hash joins", "Zero-ETL"],
+    "example": "I built a physical scan operator and lineage indexes in DuckDB, then compared index joins with hash joins on TPC-H. At AWS I worked on query execution, Zero-ETL ingestion, and read I/O.",
+    "link": "/notes/lineage-in-duckdb/",
+    "label": "DuckDB case study"
+  },
+  {
+    "area": "Data infrastructure & analytics",
+    "tools": ["Python", "AWS", "Amazon EC2", "Amazon RDS", "Apache Solr", "Apache Spark", "Amazon QuickSight", "SPICE", "Apache Superset", "Amazon SageMaker", "ETL", "Materialized views"],
+    "example": "At Eightfold, I maintained Solr on EC2, helped build RDS-to-Redshift ETL pipelines, and used materialized views to bring QuickSight dashboard response times to five seconds.",
+    "link": "/#experience",
+    "label": "Engineering experience"
+  },
+  {
+    "area": "Backend services & persistence",
+    "tools": ["Java", "Spring", "Hibernate", "MVC", "Flask", "MySQL", "Oracle Database", "SAP HANA", "SAP SuccessFactors Metadata Framework (MDF)", "OData", "CRUD APIs", "Stored procedures"],
+    "example": "At SAP SuccessFactors, I built Java and Spring services, tuned SQL on Oracle and SAP HANA, and helped redesign CRUD APIs to cut memory use in half.",
+    "link": "/#experience",
+    "label": "Engineering experience"
+  },
+  {
+    "area": "Cloud applications & messaging",
+    "tools": ["JavaScript", "Node.js", "HTML", "CSS", "Bootstrap", "jQuery", "AWS Lambda", "Amazon API Gateway", "Swagger", "AWS SDK", "Boto3", "Amazon Lex", "DynamoDB", "Amazon SQS", "Amazon SNS", "Amazon Elasticsearch Service"],
+    "example": "Our Columbia Chatbot Concierge project connected a browser chat interface to Amazon Lex through Lambda. Its recommendation workflow used a queue, a search endpoint, and DynamoDB.",
+    "link": "https://github.com/sughosh360/COMS-6998-hw1",
+    "label": "Chatbot Concierge source"
+  },
+  {
+    "area": "Testing, profiling & delivery",
+    "tools": ["JUnit", "Mockito", "JProfiler", "Git", "Jenkins", "Splunk", "Confluence", "LaTeX"],
+    "example": "I used JProfiler to benchmark memory at SAP and documented the results in Confluence. At Eightfold, I built a test framework that stubbed multiple AWS clients in one unit test.",
+    "link": "/#experience",
+    "label": "Engineering experience"
+  },
+  {
+    "area": "Accessibility",
+    "tools": ["C++", "Windows Narrator", "Microsoft Edge", "PDF"],
+    "example": "At Microsoft R&D, I investigated how Windows Narrator could recognize hyperlinks in Edge’s PDF reader.",
+    "link": "/#experience",
+    "label": "Engineering experience"
+  }
+]

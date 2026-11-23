@@ -1,0 +1,27 @@
+---
+import areas from '../data/technologies.json';
+---
+<section id="skills" aria-labelledby="skills-title">
+  <h2 id="skills-title">Technologies &amp; skills</h2>
+  <div class="areas">
+    {areas.map(area => (
+      <article>
+        <h3>{area.area}</h3>
+        <p>{area.example}</p>
+        <ul aria-label={area.area}>
+          {area.tools.map(tool => <li>{tool}</li>)}
+        </ul>
+        <a href={area.link}>{area.label}</a>
+      </article>
+    ))}
+  </div>
+</section>
+<style>
+  .areas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 23rem), 1fr)); gap: 1.75rem 2.5rem; }
+  article { padding-top: .9rem; border-top: 2px solid var(--border); }
+  h3 { margin: 0; font-size: 1.2rem; }
+  p { color: var(--muted); margin: .65rem 0; }
+  ul { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: .75rem 0; }
+  li { font-size: .875rem; padding: .15rem .55rem; border: 1px solid var(--border); border-radius: .35rem; background: var(--card); }
+  a { font-size: .94rem; }
+</style>
