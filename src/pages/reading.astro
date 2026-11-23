@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import BookList from '../components/BookList.astro';
+import publications from '../data/publications.json';
 import papers from '../data/papers.json';
 import books from '../data/books.json';
 import type { Book } from '../data/site';
@@ -10,32 +11,22 @@ const groups = [
   { status: 'next', heading: 'Up next' },
   { status: 'read', heading: 'Read' },
 ] as const;
-const topics = [...new Set(papers.flatMap(paper => paper.topics))].sort();
+const topics = [...new Set([...publications, ...papers].flatMap(paper => paper.topics))].sort();
 ---
-<Base title="Papers & reading | Sughosh Kaushik" description="Search the annotated references from SQL Execution of Smoked Duck by author, topic, technology, or venue, and explore Sughosh’s reading shelf.">
+<Base title="Publications, papers & reading | Sughosh Kaushik" description="Explore Sughosh Kaushik’s publications, SIGMOD poster and master’s thesis, then search the full thesis bibliography by topic, author, year, or venue.">
   <header class="intro">
-    <div>
-      <p class="eyebrow">Columbia University · M.S. thesis · 2022</p>
-      <h1>Papers &amp; reading</h1>
-      <p class="lead">Which input rows explain a query result? These are the sources behind my work on that question in DuckDB, with my notes on how each fits.</p>
-      <div class="links">
-        <a href="https://github.com/sughosh360/Thesis/blob/master/Smoked_Duck.pdf">Read the thesis</a>
-        <a href="/notes/lineage-in-duckdb/">Explore the case study</a>
-        <a href="#books">Bookshelf</a>
-      </div>
-    </div>
-    <aside aria-labelledby="demo-title">
-      <p class="eyebrow">Follow-up publication · SIGMOD 2023</p>
-      <h2 id="demo-title"><a href="https://doi.org/10.1145/3555041.3589731">SmokedDuck Demonstration: SQLStepper</a></h2>
-      <p>Haneen Mohammed, Charlie Summers, <strong>Sughosh Kaushik</strong>, and Eugene Wu</p>
-      <p>Our demo lets you step through a query plan and inspect the rows behind a result.</p>
-    </aside>
+    <h1>Papers &amp; reading</h1>
+    <p class="lead">My research on data lineage, query execution, and software testing, alongside the sources I cited in my Columbia thesis.</p>
+    <nav class="links" aria-label="Research collections">
+      <a href="/reading/#publications">Publications &amp; presentations ({publications.length})</a>
+      <a href="/reading/#papers">Thesis references ({papers.length})</a>
+      <a href="#books">Bookshelf</a>
+    </nav>
   </header>
 
-  <section aria-labelledby="papers" class="archive">
-    <h2 id="papers">Thesis bibliography</h2>
-    <form id="paper-search" role="search" aria-label="Search thesis references" hidden>
-      <label>Search references
+  <div class="search-area">
+    <form id="paper-search" role="search" aria-label="Search publications and thesis references" hidden>
+      <label>Search papers and presentations
         <input name="q" type="search" placeholder="Title, author, keyword, year, or venue" autocomplete="off" />
       </label>
       <label>Research topic
@@ -46,7 +37,33 @@ const topics = [...new Set(papers.flatMap(paper => paper.topics))].sort();
       </label>
       <button type="reset">Clear filters</button>
     </form>
-    <p role="status" class="status">{papers.length} references in thesis order</p>
+    <p role="status" class="status">{publications.length} authored works and {papers.length} thesis references</p>
+  </div>
+
+  <section aria-labelledby="publications" data-collection="works">
+    <h2 id="publications">Publications &amp; presentations</h2>
+    <ul class="works">
+      {publications.map(work => (
+        <li id={work.id} data-topics={JSON.stringify(work.topics)}>
+          <article>
+            <p class="publication">{work.year} · {work.type}</p>
+            <h3><a href={work.links[0].url}>{work.title}</a></h3>
+            <p class="authors">{work.authors}</p>
+            <p class="venue">{work.venue}</p>
+            <p class="note">{work.note}</p>
+            <p class="resource-links">{work.links.map(link => <a href={link.url}>{link.label}</a>)}</p>
+          </article>
+          {work.id === 'sigmod-src-poster' && <a class="poster-preview" href={work.links[0].url} aria-label="Open the full SIGMOD research poster PDF">
+            <img src="/sigmod-src-poster.webp" width="760" height="507" loading="lazy" alt="Research poster with DuckDB query plans and TPC-H lineage timing results" />
+          </a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section aria-labelledby="papers" class="archive" data-collection="references">
+    <h2 id="papers">Thesis bibliography</h2>
+    <p>All {papers.length} references from <cite>SQL Execution of Smoked Duck</cite>, numbered as they appear in the thesis.</p>
     <ol class="catalog" aria-label="Thesis references">
       {papers.map(paper => (
         <li id={`ref-${paper.number}`} data-topics={JSON.stringify(paper.topics)}>
@@ -83,23 +100,31 @@ const topics = [...new Set(papers.flatMap(paper => paper.topics))].sort();
   function normalize(value: string) {
     return value.toLowerCase().normalize('NFKD').replace(/\p{M}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
   }
-  const records = [...document.querySelectorAll<HTMLElement>('.catalog > li')].map(element => ({
-    element,
-    topics: JSON.parse(element.dataset.topics!) as string[],
-    text: normalize(Array.from(element.querySelectorAll('p, h3, .tags li, .ref, .follow-up'), item => item.textContent).join(' ')),
+  const collections = [...document.querySelectorAll<HTMLElement>('[data-collection]')].map(section => ({
+    section,
+    records: [...section.querySelectorAll<HTMLElement>('li[data-topics]')].map(element => {
+      const topics = JSON.parse(element.dataset.topics!) as string[];
+      const fields = Array.from(element.querySelectorAll('p, h3, .tags li, .ref, .follow-up'), field => field.textContent);
+      return { element, topics, text: normalize([...fields, ...topics].join(' ')) };
+    }),
   }));
 
   function filterRecords() {
     const terms = normalize(query.value).split(/\s+/).filter(Boolean);
-    let count = 0;
-    for (const record of records) {
-      const matches = (!topic.value || record.topics.includes(topic.value)) && terms.every(term => record.text.includes(term));
-      record.element.hidden = !matches;
-      if (matches) count++;
-    }
-    status.textContent = count
-      ? `${count} of ${records.length} references in thesis order`
-      : 'No matching references. Try another term or clear the filters.';
+    const counts = collections.map(({section, records}) => {
+      let count = 0;
+      for (const record of records) {
+        const matches = (!topic.value || record.topics.includes(topic.value)) && terms.every(term => record.text.includes(term));
+        record.element.hidden = !matches;
+        if (matches) count++;
+      }
+      section.hidden = count === 0;
+      return count;
+    });
+    const [works, references] = counts;
+    status.textContent = works || references
+      ? `${works} authored ${works === 1 ? 'work' : 'works'} and ${references} thesis ${references === 1 ? 'reference' : 'references'}`
+      : 'No matching publications or references. Try another term or clear the filters.';
   }
   function restore() {
     const params = new URL(location.href).searchParams;
@@ -134,17 +159,20 @@ const topics = [...new Set(papers.flatMap(paper => paper.topics))].sort();
 </script>
 
 <style>
-  .intro { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: clamp(1.5rem, 5vw, 4rem); padding: clamp(2rem, 5vw, 4rem) 0; }
-  .intro h1 { font-size: clamp(2.9rem, 6vw, 4.75rem); margin: .4rem 0; line-height: 1.08; }
-  .intro .lead { margin: 1rem 0; }
-  .links, .tags { display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+  .intro { padding: clamp(2rem, 5vw, 3.5rem) 0 1.6rem; }
+  .intro h1 { font-size: clamp(2.9rem, 6vw, 4.75rem); margin: 0; line-height: 1.08; }
+  .intro .lead { margin: .85rem 0; max-width: 62ch; }
+  .links, .tags, .resource-links { display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
   .links a { font-weight: 600; }
-  aside { color: #edf5e8; background: #183931; padding: clamp(1.2rem, 3vw, 2rem); border-radius: .8rem; border-top: 4px solid #bbd998; }
-  aside .eyebrow { color: #cae6aa; }
-  aside a { color: inherit; text-decoration-thickness: 1px; }
-  aside a:focus-visible { outline-color: #cae6aa; }
-  aside h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); margin-block: .7rem; }
-  aside p { margin: .65rem 0 0; }
+  .works { padding: 0; margin: 0; list-style: none; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr)); }
+  .works > li { padding: 1.1rem 1.3rem; border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: .45rem; background: var(--card); }
+  #sigmod-src-poster { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(12rem, 30%); align-items: center; gap: 1rem 2rem; }
+  #sigmod-src-poster[hidden] { display: none; }
+  .poster-preview { display: block; }
+  .poster-preview img { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+  @media (max-width: 42rem) { #sigmod-src-poster { grid-template-columns: 1fr; } }
+  .works .venue { margin: .3rem 0; color: var(--muted); font-size: .95rem; }
+  .works .resource-links { margin: .8rem 0 0; }
   .archive { border-top: 1px solid var(--border); }
   form { background: var(--wash); padding: 1rem; border-radius: .65rem; display: flex; align-items: end; flex-wrap: wrap; gap: .85rem; }
   form[hidden], .catalog > li[hidden] { display: none; }
@@ -169,5 +197,5 @@ const topics = [...new Set(papers.flatMap(paper => paper.topics))].sort();
   .source-note { padding-inline-start: .75rem; border-left: 2px solid var(--accent); color: var(--muted); margin: .75rem 0; font-size: .95rem; }
   .tags { list-style: none; padding: 0; margin: .75rem 0 0; gap: .3rem .45rem; }
   .tags li { background: var(--wash); color: var(--accent); padding: .15rem .5rem; border-radius: .25rem; font-size: .85rem; }
-  @media (max-width: 45rem) { .intro { grid-template-columns: 1fr; } .catalog > li { grid-template-columns: 2rem minmax(0, 1fr); } }
+  @media (max-width: 45rem) { .catalog > li { grid-template-columns: 2rem minmax(0, 1fr); } }
 </style>

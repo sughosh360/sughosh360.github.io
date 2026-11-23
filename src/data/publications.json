@@ -1,0 +1,70 @@
+[
+  {
+    "id": "sqlstepper",
+    "type": "Demo paper",
+    "year": 2023,
+    "title": "SmokedDuck Demonstration: SQLStepper",
+    "authors": "Haneen Mohammed, Charlie Summers, Sughosh Kaushik, Eugene Wu",
+    "venue": "ACM SIGMOD Companion, pp. 183–186",
+    "note": "SQLStepper lets a reader step through a DuckDB query plan and see which input rows contributed to a result.",
+    "topics": ["Data provenance", "Query execution", "Visualization"],
+    "links": [
+      {"label": "ACM paper", "url": "https://doi.org/10.1145/3555041.3589731"}
+    ]
+  },
+  {
+    "id": "lineage-resource-manager",
+    "type": "Student research abstract",
+    "year": 2022,
+    "title": "Lineage Resource Manager",
+    "authors": "Sughosh V. Kaushik",
+    "venue": "ACM SIGMOD, pp. 2530–2532",
+    "note": "This student research abstract examines how a database can manage the memory used to track lineage as queries run.",
+    "topics": ["Data provenance", "Query execution"],
+    "links": [
+      {"label": "ACM paper", "url": "https://doi.org/10.1145/3514221.3520252"}
+    ]
+  },
+  {
+    "id": "sigmod-src-poster",
+    "type": "Poster presentation",
+    "year": 2022,
+    "title": "Lineage Querying at Interactive Speeds Using DuckDB",
+    "authors": "Sughosh Kaushik",
+    "venue": "ACM SIGMOD Student Research Competition · Philadelphia",
+    "note": "I presented how DuckDB can trace an output row through indexed lineage data. The poster compares two join strategies on TPC-H queries. The project placed third in the graduate competition.",
+    "topics": ["Data provenance", "Query execution"],
+    "links": [
+      {"label": "Poster PDF", "url": "https://yongjoopark.com/sigmodsrc2022/posters/id13.pdf"},
+      {"label": "Poster session program", "url": "https://yongjoopark.com/sigmodsrc2022/"}
+    ]
+  },
+  {
+    "id": "smoked-duck-thesis",
+    "type": "Master’s thesis",
+    "year": 2022,
+    "title": "SQL Execution of Smoked Duck",
+    "authors": "Sughosh Kaushik",
+    "venue": "Columbia University · Advised by Eugene Wu",
+    "note": "I implemented a physical scan operator and integrated lineage indexes into DuckDB so SQL could trace a query result back to its source rows.",
+    "topics": ["Data provenance", "Query execution"],
+    "links": [
+      {"label": "Thesis PDF", "url": "https://github.com/sughosh360/Thesis/blob/master/Smoked_Duck.pdf"},
+      {"label": "Case study", "url": "/notes/lineage-in-duckdb/"}
+    ]
+  },
+  {
+    "id": "natural-language-test-scripts",
+    "type": "Journal article",
+    "year": 2019,
+    "title": "Automated Test Script Generation from Natural Language Query",
+    "authors": "Deepamala N., Tushar Kanakagiri, Shreyas Raghunath, Sughosh Kaushik, Shobha G., Ankit Singh, Deepak Jha",
+    "venue": "International Journal of Innovative Technology and Exploring Engineering (IJITEE), 8(7), pp. 12–16",
+    "note": "We explored two ways to turn a natural-language request into an executable test script by finding and reusing existing test procedures.",
+    "topics": ["Natural language processing", "Software testing"],
+    "links": [
+      {"label": "Journal article", "url": "https://www.ijitee.org/portfolio-item/E3039038519/"},
+      {"label": "Paper PDF", "url": "https://www.ijitee.org/wp-content/uploads/papers/v8i7/E3039038519.pdf"}
+    ]
+  }
+]

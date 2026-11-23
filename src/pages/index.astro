@@ -1,6 +1,8 @@
 ---
 import TechnologyIndex from '../components/TechnologyIndex.astro';
 import ImpactHighlights from '../components/ImpactHighlights.astro';
+import papers from '../data/papers.json';
+import publications from '../data/publications.json';
 import projects from '../data/projects.json';
 import experience from '../data/experience.json';
 import Base from '../layouts/Base.astro';
@@ -80,10 +82,18 @@ import { site } from '../data/site';
     </div>
   </section>
 
-  <section id="reading">
-    <h2>Papers &amp; reading</h2>
-    <p>Search the references behind my DuckDB thesis by author, topic, or technology. Each entry explains how the source connects to my research.</p>
-    <a href="/reading/">Browse the research index</a>
+  <section id="reading" aria-labelledby="publications">
+    <h2 id="publications">Publications &amp; presentations</h2>
+    <ul class="pub-list">
+      {publications.map(work => <li>
+        <span>{work.year} · {work.type}</span>
+        <a href={`/reading/#${work.id}`}>{work.title}</a>
+      </li>)}
+    </ul>
+    <div class="actions">
+      <a href="/reading/#publications">View publication details</a>
+      <a href="/reading/#papers">Browse all {papers.length} thesis references</a>
+    </div>
   </section>
 
   <section id="contact" class="contact">
@@ -124,7 +134,10 @@ import { site } from '../data/site';
   .credential li + li { margin-top: .35rem; }
   .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem 1.2rem; }
   .hero .actions { margin-top: 1.5rem; }
-  #reading > p:not(.eyebrow) { max-width: 64ch; }
+  .pub-list { list-style: none; margin: 0 0 1.2rem; padding: 0; }
+  .pub-list li { display: grid; grid-template-columns: minmax(12rem, .55fr) 1.45fr; gap: .25rem 1rem; align-items: baseline; border-top: 1px solid var(--border); padding: .7rem 0; }
+  .pub-list span { font-size: .9rem; color: var(--muted); }
+  @media (max-width: 40rem) { .pub-list li { grid-template-columns: 1fr; } }
   .contact { margin-block: 1rem 2.5rem; padding: clamp(1.4rem, 4vw, 3rem); border: 0; border-radius: .8rem; background: #183931; color: #eff6e9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
   .contact h2 { margin: 0; }
   .contact p { max-width: 34rem; margin: .6rem 0 0; color: #d2dfd4; }
