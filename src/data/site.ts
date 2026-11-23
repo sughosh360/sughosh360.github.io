@@ -23,14 +23,18 @@ export interface Experience {
   topics: string[];
 }
 
+const email = 'svk2117@columbia.edu';
+
 export const site = {
   name: 'Sughosh Kaushik',
-  title: 'Sughosh Kaushik | Database engineering notes',
-  description: 'Explore Sughosh Kaushik’s work on Amazon Redshift and DuckDB, with a SQL lineage case study, query plan walkthrough, and reading notes.',
-  bio: 'I’m a database enthusiast and software engineer working on query execution at Amazon Redshift. At Columbia, I built a way to ask DuckDB which rows contributed to a result.',
+  title: 'Sughosh Kaushik | Database & infrastructure engineer',
+  description: 'Database and infrastructure engineer working on Amazon Redshift query execution. Explore my engineering results, DuckDB research, and résumé, or get in touch about a role.',
+  bio: 'I build the engines behind SQL queries and the pipelines that feed them. At AWS, I work on query execution in Amazon Redshift. At Eightfold, I led a five-person infrastructure team.',
+  email,
+  recruitingUrl: `mailto:${email}?subject=${encodeURIComponent('Engineering role and introductory call')}`,
+  resumeUrl: '/sughosh-kaushik-resume.pdf',
   links: [
     { label: 'GitHub', url: 'https://github.com/sughosh360' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/sughosh-kaushik' },
-    // TODO: add more, e.g. { label: 'Email', url: 'mailto:<you>@example.com' },
   ],
 };

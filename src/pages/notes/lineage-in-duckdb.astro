@@ -12,7 +12,7 @@ SELECT region, SUM(amount) AS total
 FROM orders
 GROUP BY region;`}</code></pre>
   <LineageFigure />
-  <h2>Read the mappings where they live</h2>
+  <h2 id="physical-scan">Read the mappings where they live</h2>
   <p>Smoked Duck already captured lineage as DuckDB's operators ran. My question was how to make those mappings queryable through SQL. Turning every mapping into a regular table would make it easy to scan, but we'd pay for copying and formatting data before anyone even clicked the chart.</p>
   <p>I implemented a physical scan operator that reads the captured mappings directly. To trace across a whole query plan, I integrated lineage indexes with DuckDB's index join. Instead of scanning and joining whole mapping tables for one selected result, the engine could follow the relevant row IDs from one operator to its child.</p>
   <h2>What the experiment showed</h2>

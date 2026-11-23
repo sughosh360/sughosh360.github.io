@@ -1,4 +1,5 @@
 ---
+import ImpactHighlights from '../components/ImpactHighlights.astro';
 import projects from '../data/projects.json';
 import experience from '../data/experience.json';
 import Base from '../layouts/Base.astro';
@@ -11,20 +12,22 @@ import { site } from '../data/site';
 <Base>
   <section id="about" class="hero">
     <div>
-      <p class="eyebrow">Field notes / Database engineering</p>
-      <h1>Sughosh Kaushik</h1>
+      <p class="eyebrow">Database &amp; infrastructure engineer</p>
+      <h1>Sughosh <em>Kaushik</em></h1>
       <p class="lead">{site.bio}</p>
       <div class="actions">
-        <a class="button" href="/notes/lineage-in-duckdb/">Read the DuckDB case study <span aria-hidden="true">→</span></a>
-        <a href="#now">What I’m working on</a>
+        <a class="button" href={site.recruitingUrl}>Email me about a role</a>
+        <a class="resume" href={site.resumeUrl} download>Download résumé <span>PDF</span></a>
       </div>
     </div>
     <LineageFigure />
   </section>
 
+  <ImpactHighlights />
+
   <section id="now" class="now">
     <div>
-      <p class="eyebrow">Now / <time datetime="2026-11">November 2026</time></p>
+      <p class="eyebrow">Current project · <time datetime="2026-11">November 2026</time></p>
       <h2>Connecting DuckDB to Redshift</h2>
     </div>
     <div>
@@ -34,7 +37,6 @@ import { site } from '../data/site';
   </section>
 
   <section id="projects">
-    <p class="eyebrow">01 / Selected work</p>
     <h2>Projects &amp; database notes</h2>
     <div class="grid">
       {projects.map((project) => <ProjectCard project={project} />)}
@@ -42,7 +44,6 @@ import { site } from '../data/site';
   </section>
 
   <section id="experience">
-    <p class="eyebrow">02 / Career</p>
     <h2>Experience</h2>
     <ExperienceTimeline items={experience} />
   </section>
@@ -77,23 +78,34 @@ import { site } from '../data/site';
   </section>
 
   <section id="reading">
-    <p class="eyebrow">03 / Bookshelf</p>
     <h2>Papers &amp; reading</h2>
     <p>Start with two papers behind my DuckDB research: one on why lineage needs to be fast, the other on the engine that made it possible to experiment.</p>
     <a href="/reading/">Browse the reading shelf <span aria-hidden="true">→</span></a>
   </section>
 
-  <section id="contact">
-    <p class="eyebrow">04 / Elsewhere</p>
-    <h2>Get in touch</h2>
-    <div class="actions">{site.links.map((link) => <a href={link.url}>{link.label} <span aria-hidden="true">↗</span></a>)}</div>
+  <section id="contact" class="contact">
+    <div>
+      <h2>Have a role in mind?</h2>
+      <p>Tell me about the team, the engineering problem, and a good time for a call.</p>
+    </div>
+    <div class="contact-links">
+      <a class="email" href={site.recruitingUrl}>{site.email}</a>
+      <div class="actions">
+        {site.links.map(link => <a href={link.url}>{link.label}</a>)}
+        <a href={site.resumeUrl} download>Résumé (PDF)</a>
+      </div>
+    </div>
   </section>
 </Base>
 
 <style>
   .hero, .now { display: grid; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
-  .hero { padding-block: clamp(3rem, 7vw, 5.75rem); grid-template-columns: 1.15fr .85fr; }
-  .hero h1 { margin: .6rem 0 1.1rem; font-size: clamp(3.3rem, 6.9vw, 5.5rem); }
+  .hero { padding-block: clamp(2.25rem, 5.4vw, 4.2rem); grid-template-columns: 1.06fr .94fr; }
+  .hero h1 { margin: .6rem 0 1.1rem; font-size: clamp(3.7rem, 7.5vw, 6rem); line-height: .98; }
+  .hero h1 em { display: block; color: var(--accent); font-weight: inherit; }
+  .hero .eyebrow { font-size: .85rem; }
+  .resume { display: inline-flex; gap: .4rem; align-items: center; padding-block: .65rem; font-weight: 600; }
+  .resume span { font: 500 .75rem var(--mono); }
   .hero .lead { max-width: 34rem; }
   .now { grid-template-columns: .85fr 1.15fr; padding: clamp(1.3rem, 3vw, 2.3rem); background: var(--wash); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: .65rem; }
   .now h2 { margin-bottom: 0; }
@@ -110,5 +122,13 @@ import { site } from '../data/site';
   .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem 1.2rem; }
   .hero .actions { margin-top: 1.5rem; }
   #reading > p:not(.eyebrow) { max-width: 64ch; }
+  .contact { margin-block: 1rem 2.5rem; padding: clamp(1.4rem, 4vw, 3rem); border: 0; border-radius: .8rem; background: #183931; color: #eff6e9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+  .contact h2 { margin: 0; }
+  .contact p { max-width: 34rem; margin: .6rem 0 0; color: #d2dfd4; }
+  .contact a { color: #d1eead; }
+  .contact a:focus-visible { outline-color: #e3f8c7; }
+  .contact-links { min-width: 0; }
+  .contact-links .email { font-size: clamp(1.08rem, 2vw, 1.4rem); overflow-wrap: anywhere; }
+  .contact-links .actions { margin-top: .6rem; font-size: .95rem; }
   @media (max-width: 48rem) { .hero, .now { grid-template-columns: 1fr; } }
 </style>
