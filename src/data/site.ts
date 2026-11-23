@@ -25,14 +25,16 @@ export interface Experience {
 
 const email = 'svk2117@columbia.edu';
 
+const role = 'Software Engineer';
+
 export const site = {
   name: 'Sughosh Kaushik',
-  title: 'Sughosh Kaushik | Database & infrastructure engineer',
-  description: 'Database and infrastructure engineer working on Amazon Redshift query execution. Explore my engineering results, DuckDB research, and résumé, or get in touch about a role.',
-  bio: 'I build the engines behind SQL queries and the pipelines that feed them. At AWS, I work on query execution in Amazon Redshift.',
+  role,
+  title: `Sughosh Kaushik | ${role}`,
+  description: 'Sughosh Kaushik is a software engineer at AWS. Explore his work on Amazon Redshift and Aurora MySQL, his engineering experience, and his research at Columbia.',
+  bio: 'At AWS, I work on the engine that runs queries in Amazon Redshift. I’ve also fixed data ingestion failures in Redshift and a read performance regression in Aurora MySQL.',
   email,
   recruitingUrl: `mailto:${email}?subject=${encodeURIComponent('Engineering role and introductory call')}`,
-  resumeUrl: '/sughosh-kaushik-resume.pdf',
   links: [
     { label: 'GitHub', url: 'https://github.com/sughosh360' },
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/sughosh-kaushik' },

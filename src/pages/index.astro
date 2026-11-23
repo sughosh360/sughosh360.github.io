@@ -15,12 +15,12 @@ import { site } from '../data/site';
 <Base>
   <section id="about" class="hero">
     <div>
-      <p class="eyebrow">Database &amp; infrastructure engineer</p>
+      <p class="eyebrow">{site.role}</p>
       <h1>Sughosh <em>Kaushik</em></h1>
       <p class="lead">{site.bio}</p>
       <div class="actions">
         <a class="button" href={site.recruitingUrl}>Email me about a role</a>
-        <a class="resume" href={site.resumeUrl} download>Download résumé <span>PDF</span></a>
+        <a href="#experience">View experience</a>
       </div>
     </div>
     <LineageFigure />
@@ -105,7 +105,6 @@ import { site } from '../data/site';
       <a class="email" href={site.recruitingUrl}>{site.email}</a>
       <div class="actions">
         {site.links.map(link => <a href={link.url}>{link.label}</a>)}
-        <a href={site.resumeUrl} download>Résumé (PDF)</a>
       </div>
     </div>
   </section>
@@ -117,8 +116,6 @@ import { site } from '../data/site';
   .hero h1 { margin: .6rem 0 1.1rem; font-size: clamp(3.7rem, 7.5vw, 6rem); line-height: .98; }
   .hero h1 em { display: block; color: var(--accent); font-weight: inherit; }
   .hero .eyebrow { font-size: .85rem; }
-  .resume { display: inline-flex; gap: .4rem; align-items: center; padding-block: .65rem; font-weight: 600; }
-  .resume span { font: 500 .75rem var(--mono); }
   .hero .lead { max-width: 34rem; }
   .now { grid-template-columns: .85fr 1.15fr; padding: clamp(1.3rem, 3vw, 2.3rem); background: var(--wash); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: .65rem; }
   .now h2 { margin-bottom: 0; }
