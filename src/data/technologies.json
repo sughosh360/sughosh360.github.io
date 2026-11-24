@@ -2,21 +2,21 @@
   {
     "area": "Database engines & query processing",
     "tools": ["C", "C++", "SQL", "DuckDB", "Smoked Duck", "Amazon Redshift", "Redshift Serverless", "Aurora MySQL", "Apache Parquet", "TPC-H", "Vectorized execution", "Lineage indexes", "Index joins", "Hash joins", "Zero-ETL"],
-    "example": "I built a physical scan operator and lineage indexes in DuckDB, then compared index joins with hash joins on TPC-H. At AWS I worked on query execution, Zero-ETL ingestion, and read I/O.",
+    "example": "At AWS, this work spans Redshift query execution, near-real-time replication, and Aurora MySQL read performance. My Columbia research used DuckDB and TPC-H to compare two ways of tracing a query result back to its source rows.",
     "link": "/notes/lineage-in-duckdb/",
     "label": "DuckDB case study"
   },
   {
     "area": "Data infrastructure & analytics",
     "tools": ["Python", "AWS", "Amazon EC2", "Amazon RDS", "Apache Solr", "Apache Spark", "Amazon QuickSight", "SPICE", "Apache Superset", "Amazon SageMaker", "ETL", "Materialized views"],
-    "example": "At Eightfold, I maintained Solr on EC2, helped build RDS-to-Redshift ETL pipelines, and used materialized views to bring QuickSight dashboard response times to five seconds.",
+    "example": "At Eightfold, RDS-to-Redshift pipelines had a two-hour delivery SLA. Materialized views brought QuickSight dashboard response times to five seconds. I also maintained the Solr search service on EC2.",
     "link": "/#experience",
     "label": "Engineering experience"
   },
   {
     "area": "Backend services & persistence",
     "tools": ["Java", "Spring", "Hibernate", "MVC", "Flask", "MySQL", "Oracle Database", "SAP HANA", "SAP SuccessFactors Metadata Framework (MDF)", "OData", "CRUD APIs", "Stored procedures"],
-    "example": "At SAP SuccessFactors, I built Java and Spring services, tuned SQL on Oracle and SAP HANA, and helped redesign CRUD APIs to cut memory use in half.",
+    "example": "SAP SuccessFactors’ extensibility platform ran Java and Spring services over Oracle and SAP HANA. Redesigning its CRUD APIs with two architects cut memory use in half.",
     "link": "/#experience",
     "label": "Engineering experience"
   },
@@ -30,7 +30,7 @@
   {
     "area": "Testing, profiling & delivery",
     "tools": ["JUnit", "Mockito", "JProfiler", "Git", "Jenkins", "Splunk", "Confluence", "LaTeX"],
-    "example": "I used JProfiler to benchmark memory at SAP and documented the results in Confluence. At Eightfold, I built a test framework that stubbed multiple AWS clients in one unit test.",
+    "example": "At SAP, JProfiler benchmarks documented in Confluence gave 12 module teams evidence to evaluate the new programming model. At Eightfold, a Python test framework let one unit test stub multiple AWS clients.",
     "link": "/#experience",
     "label": "Engineering experience"
   },
