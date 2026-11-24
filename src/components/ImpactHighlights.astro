@@ -1,31 +1,51 @@
 ---
-const highlights = [
-  {
-    company: 'AWS · Amazon Redshift',
-    result: 'Restored Zero-ETL ingestion',
-    detail: 'When a customer’s first data load failed, I traced the failure to two services interpreting Parquet dates and timestamps differently. I worked across teams to get ingestion running again.',
-  },
-  {
-    company: 'AWS · Aurora MySQL',
-    result: 'Fixed a slowdown in database reads',
-    detail: 'I tracked a performance regression in Aurora MySQL 8.4 to the threads that handle read I/O and fixed it. I also made the maximum SQL digest length configurable across server restarts.',
-  },
-  {
-    company: 'Eightfold AI',
-    result: '5-second analytics dashboards',
-    detail: 'I replaced QuickSight’s in-memory dashboards with dashboards backed by materialized views. Queries that had timed out returned in five seconds.',
-  },
-  {
-    company: 'SAP SuccessFactors',
-    result: '50% less memory for CRUD APIs',
-    detail: 'I worked with two architects to rebuild the APIs that create, read, update, and delete records. The new implementation used half the memory.',
-  },
-];
+interface Props {
+  group: 'aws' | 'other';
+}
+const { group } = Astro.props;
+const isAws = group === 'aws';
+const titleId = isAws ? 'aws-work-title' : 'impact-title';
+const highlights = {
+  aws: [
+    {
+      company: 'Redshift Serverless',
+      result: 'Balanced work in 4-RPU workgroups',
+      detail: 'In workgroups with four Redshift Processing Units, the engine assigned work unevenly. I corrected the assignment policy, added tracing, and verified the fix with integration tests.',
+    },
+    {
+      company: 'Redshift zero-ETL',
+      result: 'Redesigned locking for replication',
+      detail: 'I traced repeated integration restarts to catalog updates and maintenance tasks competing for the same lock. I separated how the two tasks coordinate so each could make progress.',
+    },
+    {
+      company: 'Redshift zero-ETL',
+      result: 'Unblocked data replication during onboarding',
+      detail: 'When a customer’s first data load failed, I traced the failure to two services interpreting Parquet dates and timestamps differently. I worked across teams to get ingestion running again.',
+    },
+    {
+      company: 'Aurora MySQL',
+      result: 'Fixed a slowdown in database reads',
+      detail: 'I tracked a performance regression in Aurora MySQL 8.4 to the threads that handle read I/O and fixed it. I also made the maximum SQL digest length configurable across server restarts.',
+    },
+  ],
+  other: [
+    {
+      company: 'Eightfold AI',
+      result: '5-second analytics dashboards',
+      detail: 'I replaced QuickSight’s in-memory dashboards with dashboards backed by materialized views. Queries that had timed out returned in five seconds.',
+    },
+    {
+      company: 'SAP SuccessFactors',
+      result: '50% less memory for CRUD APIs',
+      detail: 'I worked with two architects to rebuild the APIs that create, read, update, and delete records. The new implementation used half the memory.',
+    },
+  ],
+};
 ---
-<section aria-labelledby="impact-title" class="impact">
-  <h2 id="impact-title">Engineering impact</h2>
+<section aria-labelledby={titleId} class:list={['impact', { 'aws-work': isAws }]}>
+  <h2 id={titleId}>{isAws ? 'Selected work at AWS' : 'Engineering impact'}</h2>
   <div class="outcomes">
-    {highlights.map(item => (
+    {highlights[group].map(item => (
       <details>
         <summary>
           <span class="company">{item.company}</span>
@@ -40,6 +60,23 @@ const highlights = [
 
 <style>
   .impact { padding: 1.75rem 0 2.25rem; }
+  .aws-work {
+    padding: clamp(1.15rem, 3vw, 2rem);
+    color: #f3f8eb;
+    background: #153630;
+    border: 1px solid #45675e;
+    border-radius: .85rem;
+    --muted: #d4e2d9;
+    --accent: #c5e4a5;
+  }
+  .aws-work .outcomes { grid-template-columns: 1fr; gap: 1rem; }
+  .aws-work summary { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+  .aws-work .company { grid-column: 1 / -1; }
+  .aws-work strong { font-size: clamp(1.35rem, 2vw, 1.7rem); }
+  .aws-work .read { font-size: 1.4rem; line-height: 1; }
+  .aws-work .read span { display: none; }
+  .aws-work details { border-top: 1px solid #749487; }
+  .aws-work summary:focus-visible { outline-color: #d3eea6; }
   h2 { font: 650 1rem/1.5 system-ui, sans-serif; letter-spacing: 0; margin: 0 0 1rem; }
   .outcomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.35rem 2rem; align-items: start; }
   details { border-top: 2px solid var(--accent); }
