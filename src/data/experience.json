@@ -18,9 +18,9 @@
     "org": "Amazon Web Services",
     "period": "May 2025 – Present",
     "bullets": [
-      "Corrected uneven work assignment in 4-RPU Redshift Serverless workgroups, added tracing, and validated the rollout with integration tests.",
-      "Unblocked Zero-ETL ingestion by tracing a Parquet date and timestamp parsing mismatch across services.",
-      "Traced zero-ETL integration restarts to lock starvation and redesigned locking so catalog updates and maintenance tasks could make progress independently."
+      "Corrected a shared scheduling rule after 4-RPU replication stalled and returned incorrect results for 15+ customers. Added tracing and integration tests to verify work distribution during rollout.",
+      "Led the investigation when an initial zero-ETL load failed across two services. Isolating the difference in how they interpreted Parquet dates and timestamps gave the teams a fix that unblocked ingestion.",
+      "Redesigned lock scope after zero-ETL customer clusters across 42 AWS Regions experienced restarts. Separated catalog updates from maintenance and proposed per-integration metrics for lock waits and task duration."
     ],
     "topics": [
       "Data pipelines",
@@ -33,8 +33,8 @@
     "org": "Amazon Web Services",
     "period": "Nov 2024 – May 2025",
     "bullets": [
-      "Fixed a read I/O performance regression in Aurora MySQL 8.4.",
-      "Made the maximum SQL digest length configurable and ensured the setting persisted across server restarts."
+      "Restored read performance in Aurora MySQL 8.4 by correcting a regression in the threads that handle read I/O.",
+      "Made SQL digest length configurable at startup so operators could retain their chosen setting across restarts."
     ],
     "topics": [
       "Databases",
@@ -47,10 +47,9 @@
     "org": "Eightfold AI",
     "period": "Jun 2022 – Present",
     "bullets": [
-      "Maintained Solr search infrastructure on AWS.",
-      "Helped build near-real-time ETL pipelines from Amazon RDS to Redshift with a two-hour SLA.",
-      "Improved analytics performance 10× and brought dashboard response times to five seconds with materialized views in QuickSight.",
-      "Reduced Spark analytics job runtime by 30%."
+      "Proposed and implemented materialized views for QuickSight dashboards. Analytics performance improved 10×, and dashboards that had timed out returned results in five seconds.",
+      "A new Spark pipeline cut analytics job runtime by 30%. Helped build the RDS-to-Redshift pipelines that supplied analytics under a two-hour delivery SLA.",
+      "Maintained production Solr search on AWS and investigated queries that timed out."
     ],
     "topics": [
       "Data pipelines",
@@ -75,11 +74,10 @@
     "org": "SAP SuccessFactors",
     "period": "Jun 2017 – Jan 2022",
     "bullets": [
-      "Built critical components of the Metadata Framework (MDF), SuccessFactors' cloud extensibility platform, in Java/Spring over Oracle, MySQL, and SAP HANA.",
-      "Designed schemas, wrote stored procedures, and tuned SQL for MDF on Oracle and SAP HANA.",
-      "Built Generic Object Change Request, a service layer for composite objects, OData APIs and generic UI; CRUD APIs cut memory by 50% and improved performance 6x.",
-      "Built a persistence proxy layer to migrate high-volume objects from single- to multi-table storage without customer data loss.",
-      "Added guardrails, batching and pagination to stop OOM timeouts and GC pauses on ~4 GB objects; benchmarked and presented the new model to 12 module teams."
+      "Worked with two architects to redesign the Metadata Framework’s CRUD APIs. The new implementation halved memory use, improved API performance sixfold, and supported onboarding enterprises with more than one million employees.",
+      "Benchmarked the old and new programming models with JProfiler and shared the results so 12 module teams could evaluate the change.",
+      "Designed a persistence proxy so high-volume objects could move from single-table to multi-table storage without losing customer data. Batching and pagination addressed out-of-memory failures on objects of about 4 GB.",
+      "Built the Generic Object Change Request service and OData APIs in the Java and Spring extensibility platform. Tuned schemas, stored procedures, and SQL across Oracle and SAP HANA."
     ],
     "topics": [
       "Databases",

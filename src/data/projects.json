@@ -1,5 +1,16 @@
 [
   {
+    "id": "redshift-replication",
+    "name": "Keeping Redshift replication correct and moving",
+    "description": "Two production failures called for different design decisions. One changed how Redshift Serverless assigns work. The other changed which operations have to wait for each other.",
+    "url": "/notes/redshift-replication/",
+    "tags": [
+      "Redshift Serverless",
+      "Zero-ETL",
+      "Concurrency"
+    ]
+  },
+  {
     "id": "thesis",
     "name": "Which rows made this result?",
     "description": "For my Columbia master’s thesis, I built a scan operator and indexes in DuckDB to trace a query result back to its source rows.",

@@ -1,0 +1,14 @@
+---
+import Note from '../../layouts/Note.astro';
+---
+<Note title="Keeping Redshift replication correct and moving" label="Engineering case study · Amazon Redshift" description="Customers rely on near-real-time replication to make decisions using current data. Two failures in Redshift exposed different risks to that promise.">
+  <h2 id="work-distribution">Incorrect results in 4-RPU workgroups</h2>
+  <p>Replication had stalled and returned incorrect results for 15+ customers using Redshift Serverless workgroups with four Redshift Processing Units (RPUs). The affected workgroups shared a scheduling policy, so the same failure could reach the wider fleet.</p>
+  <p>The policy distributed work according to how the data was divided. That left some compute slices with a disproportionate share of the work. I changed the assignment rule to distribute work across the compute slices available to run it.</p>
+  <p>To verify the rollout, I added event tracing that showed where the work went and used integration tests to check the new distribution. That gave us a way to test the underlying imbalance directly.</p>
+
+  <h2 id="lock-scope">Why integrations were restarting across 42 AWS Regions</h2>
+  <p>In a separate incident, customer clusters across the zero-ETL fleet were seeing restarts in 42 AWS Regions. Catalog updates and maintenance tasks shared a lock. When one task repeatedly acquired the lock, the other could fail to make progress. I traced the restarts and transaction exhaustion to this lock starvation.</p>
+  <p>I redesigned the locking so catalog updates and maintenance each coordinated their own work. That removed the shared point of contention while preserving coordination within each operation.</p>
+  <p>A restart alone tells an operator little about what blocked progress. I also proposed measuring task duration and lock waits for each integration so operators could distinguish a slow task from one waiting to run.</p>
+</Note>
