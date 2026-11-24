@@ -2,7 +2,7 @@
   {
     "id": "thesis",
     "name": "Which rows made this result?",
-    "description": "Inside my Smoked Duck thesis: a physical scan and lineage indexes that trace a result through DuckDB’s query plan.",
+    "description": "For my Columbia master’s thesis, I built a scan operator and indexes in DuckDB to trace a query result back to its source rows.",
     "url": "/notes/lineage-in-duckdb/",
     "tags": [
       "DuckDB",

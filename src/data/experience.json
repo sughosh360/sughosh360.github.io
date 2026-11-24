@@ -18,9 +18,9 @@
     "org": "Amazon Web Services",
     "period": "May 2025 – Present",
     "bullets": [
-      "Improved Redshift Serverless reliability by fixing uneven work assignment and validating the rollout with integration tests.",
+      "Corrected uneven work assignment in 4-RPU Redshift Serverless workgroups, added tracing, and validated the rollout with integration tests.",
       "Unblocked Zero-ETL ingestion by tracing a Parquet date and timestamp parsing mismatch across services.",
-      "Redesigned locking for catalog and maintenance tasks after tracing integration restarts to lock starvation."
+      "Traced zero-ETL integration restarts to lock starvation and redesigned locking so catalog updates and maintenance tasks could make progress independently."
     ],
     "topics": [
       "Data pipelines",
